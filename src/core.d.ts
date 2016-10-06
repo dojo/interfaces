@@ -116,6 +116,10 @@ export interface Handle {
 	destroy(): void;
 }
 
-export interface StylesHash {
+/**
+ * A base map of styles where each key is the name of the style attribute and the value is a string
+ * which represents the style
+ */
+export interface StylesMap {
 	[style: string]: string;
 }
