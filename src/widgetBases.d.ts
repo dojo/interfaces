@@ -431,11 +431,6 @@ export interface WidgetMixin {
 	on(type: 'invalidated', listener: EventedListener<Widget<WidgetState>, EventTargettedObject<Widget<WidgetState>>>): Handle;
 
 	/**
-	 * A reference, if any, to the parent that currently *owns* this widget.
-	 */
-	parent: RenderableParent | null;
-
-	/**
 	 * Render the widget, returing the virtual DOM node that represents this widget.
 	 *
 	 * It is not intended that mixins will override or aspect this method, as the render process is decomposed to
