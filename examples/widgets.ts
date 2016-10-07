@@ -77,3 +77,8 @@ const compositeWidget2 = createCompositeWidget({
 /* creating subwidgets */
 compositeWidget2.widgets.create({ factory: createWidget });
 compositeWidget2.widgets.create({ bar: { factory: createWidget, options: { tagName: 'baz' } } });
+
+/* widgets should now emit invalidated events when invalidated, which parents should listen for */
+widget.on('invalidated', (e) => {
+	e.type;
+});

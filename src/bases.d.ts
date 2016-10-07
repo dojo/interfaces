@@ -31,40 +31,7 @@ export interface Destroyable {
  * A base class, which provides the functionality of emitting events and attaching listeners to those
  * events
  */
-export type Evented = Destroyable & EventedMixin;
-
-export interface EventedCallback<E extends EventObject> {
-	/**
-	 * A callback that takes an `event` argument
-	 *
-	 * @param event The event object
-	 */
-	(event: E): boolean | void;
-}
-
-/**
- * Either an EventedCallback or an Actionable, which are valid listeners for Evented events
- */
-export type EventedListener<T, E extends EventTargettedObject<T>> = EventedCallback<E> | Actionable<T, E>;
-
-/**
- * A map of listeners to be applied, where the key of the map is the `event.type` to listen for
- */
-export interface EventedListenersMap<T> {
-	[type: string]: EventedListenerOrArray<T, EventTargettedObject<T>>;
-}
-
-/**
- * A type which is either a targeted event listener or an array of listeners
- * @template T The type of target for the events
- * @template E The event type for the events
- */
-export type EventedListenerOrArray<T, E extends EventTargettedObject<T>> = EventedListener<T, E> | EventedListener<T, E>[];
-
-/**
- * The mixin that is used to add functionality to Evented
- */
-export interface EventedMixin {
+export interface Evented extends Destroyable {
 	/**
 	 * Emit an event.
 	 *
@@ -104,6 +71,34 @@ export interface EventedMixin {
 	on(type: string, listener: EventedListenerOrArray<this, EventTargettedObject<this>>): Handle;
 }
 
+export interface EventedCallback<E extends EventObject> {
+	/**
+	 * A callback that takes an `event` argument
+	 *
+	 * @param event The event object
+	 */
+	(event: E): boolean | void;
+}
+
+/**
+ * Either an EventedCallback or an Actionable, which are valid listeners for Evented events
+ */
+export type EventedListener<T, E extends EventTargettedObject<T>> = EventedCallback<E> | Actionable<T, E>;
+
+/**
+ * A map of listeners to be applied, where the key of the map is the `event.type` to listen for
+ */
+export interface EventedListenersMap<T> {
+	[type: string]: EventedListenerOrArray<T, EventTargettedObject<T>>;
+}
+
+/**
+ * A type which is either a targeted event listener or an array of listeners
+ * @template T The type of target for the events
+ * @template E The event type for the events
+ */
+export type EventedListenerOrArray<T, E extends EventTargettedObject<T>> = EventedListener<T, E> | EventedListener<T, E>[];
+
 export interface State {
 	[key: string]: any;
 }
@@ -129,7 +124,7 @@ export type Stateful<S extends State> = StatefulMixin<S> & Evented & {
 	 * @param type The event type to listen for
 	 * @param listener The listener that will be called when the event occurs
 	 */
-	on(type: 'statecomplete', listener: EventedListener<Stateful<S>, EventCancelableObject<'statecomplete', Stateful<S>>>): Handle;
+	on(type: 'state:complete', listener: EventedListener<Stateful<S>, EventCancelableObject<'statecomplete', Stateful<S>>>): Handle;
 
 	/**
 	 * Add a listener for a `statechange` event, which occures whenever the state changes on the instance.
@@ -137,7 +132,7 @@ export type Stateful<S extends State> = StatefulMixin<S> & Evented & {
 	 * @param type The event type to listen for
 	 * @param listener The listener that will be called when the event occurs
 	 */
-	on(type: 'statechange', listener: EventedListener<Stateful<S>, StateChangeEvent<S>>): Handle;
+	on(type: 'state:change', listener: EventedListener<Stateful<S>, StateChangeEvent<S>>): Handle;
 }
 
 export interface StatefulMixin<S extends State>{

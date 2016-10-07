@@ -8,7 +8,7 @@
 import Promise from 'dojo-shim/Promise';
 import { List, Map } from 'immutable';
 import { VNode } from 'maquette';
-import { Destroyable } from './bases';
+import { Destroyable, EventedListener } from './bases';
 import { EventTargettedObject, Handle } from './core';
 import { Observable } from './observables';
 
@@ -41,9 +41,22 @@ export interface Invalidatable {
 	 * Signal to the instance that it is in an invalide state
 	 */
 	invalidate(): void;
+
+	/**
+	 * Attach a listener to the invalidated event, which is emitted when the `.invalidate()` method is called
+	 *
+	 * @param type The event type to listen for
+	 * @param listener The listener to call when the event is emitted
+	 */
+	on(type: 'invalidated', listener: EventedListener<Renderable, EventTargettedObject<Renderable>>): Handle;
 }
 
 export interface Renderable extends Destroyable, Invalidatable {
+	/**
+	 * The ID of the child
+	 */
+	readonly id: string;
+
 	/**
 	 * Takes no arguments and returns a VNode
 	 */
@@ -55,32 +68,20 @@ export interface Renderable extends Destroyable, Invalidatable {
 	tagName: string;
 }
 
-export interface RenderableChild extends Renderable, Invalidatable {
-	/**
-	 * The ID of the child
-	 */
-	readonly id: string;
-
-	/**
-	 * A reference to the child's parent
-	 */
-	parent: RenderableParent | null;
-}
-
-export interface RenderableParent extends Renderable, Invalidatable {
+export interface RenderableParent extends Renderable {
 	/**
 	 * Append the child to the children which are managed by the parent
 	 *
 	 * @param child The child to append
 	 */
-	append(child: RenderableChild[] | RenderableChild): Handle;
+	append(child: Renderable[] | Renderable): Handle;
 
 	/* TODO: Add Insert API */
 
 	/**
 	 * The immutable list of children *owned* by the parent
 	 */
-	readonly children: Map<string, RenderableChild> | List<RenderableChild>;
+	readonly children: Map<string, Renderable> | List<Renderable>;
 }
 
 export interface StoreObservable<T> {

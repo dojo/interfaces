@@ -16,9 +16,9 @@
 import Promise from 'dojo-shim/Promise';
 import { List, Map } from 'immutable';
 import { VNode, VNodeProperties } from 'maquette';
-import { RenderableChild, RenderableParent } from './abilities';
+import { Renderable, RenderableParent } from './abilities';
 import { EventedListener, State, Stateful, StatefulOptions } from './bases';
-import { Factory, Handle, StylesMap } from './core';
+import { EventTargettedObject, Factory, Handle, StylesMap } from './core';
 
 /**
  * A function that is called when collecting the children nodes on render, accepting the current list of
@@ -58,7 +58,7 @@ export interface ChildrenChangeEvent<T> {
 	type: 'children:change';
 }
 
-export interface CompositeManagerFunction<W extends RenderableChild, S extends WidgetState> {
+export interface CompositeManagerFunction<W extends Renderable, S extends WidgetState> {
 	/**
 	 * A function which allows the management of the subwidgets of a composite widget
 	 *
@@ -68,7 +68,7 @@ export interface CompositeManagerFunction<W extends RenderableChild, S extends W
 	(widgets: SubWidgetManager<W>, instance: CompositeWidget<W, S>): void;
 }
 
-export interface CompositeMixin<W extends RenderableChild, S extends WidgetState> {
+export interface CompositeMixin<W extends Renderable, S extends WidgetState> {
 	/**
 	 * Signal to the composite widget that it needs to ensure that it is an internally consistent state.
 	 *
@@ -92,9 +92,9 @@ export interface CompositeMixin<W extends RenderableChild, S extends WidgetState
 /**
  * The *final* type for the CompositeWidget
  */
-export type CompositeWidget<W extends RenderableChild, S extends WidgetState> = Widget<S> & CompositeMixin<W, S>;
+export type CompositeWidget<W extends Renderable, S extends WidgetState> = Widget<S> & CompositeMixin<W, S>;
 
-export interface CompositeWidgetOptions<W extends RenderableChild, S extends WidgetState> extends WidgetOptions<S> {
+export interface CompositeWidgetOptions<W extends Renderable, S extends WidgetState> extends WidgetOptions<S> {
 	/**
 	 * Any widget manager functions that should be added to this instance
 	 */
@@ -106,7 +106,7 @@ export interface CompositeWidgetOptions<W extends RenderableChild, S extends Wid
 	widgets?: CreateWidgetMap<W, WidgetOptions<WidgetState>>;
 }
 
-export interface ContainerListMixin<C extends RenderableChild> {
+export interface ContainerListMixin<C extends Renderable> {
 	/**
 	 * Append a child to the end of the children associated with this widget
 	 *
@@ -181,9 +181,9 @@ export interface ContainerListMixin<C extends RenderableChild> {
 /**
  * The *final* type for ContainerListWidget
  */
-export type ContainerListWidget<C extends RenderableChild, S extends ContainerListWidgetState> = Widget<S> & ContainerListMixin<C>;
+export type ContainerListWidget<C extends Renderable, S extends ContainerListWidgetState> = Widget<S> & ContainerListMixin<C>;
 
-export interface ContainerListWidgetOptions<C extends RenderableChild, S extends ContainerListWidgetState> extends WidgetOptions<S> {
+export interface ContainerListWidgetOptions<C extends Renderable, S extends ContainerListWidgetState> extends WidgetOptions<S> {
 	/**
 	 * A list of children to be created and added to the container at creation time
 	 */
@@ -204,7 +204,7 @@ export interface ContainerListWidgetState extends WidgetState {
 	children: string[];
 }
 
-export interface ContainerMapMixin<C extends RenderableChild> {
+export interface ContainerMapMixin<C extends Renderable> {
 	/**
 	 * Append a child to the end of the children associated with this widget
 	 *
@@ -271,9 +271,9 @@ export interface ContainerMapMixin<C extends RenderableChild> {
 	sort(childA: [string, C], childB: [string, C]): 0 | 1 | -1;
 }
 
-export type ContainerMapWidget<C extends RenderableChild, S extends ContainerMapWidgetState> = Widget<S> & ContainerMapMixin<C>;
+export type ContainerMapWidget<C extends Renderable, S extends ContainerMapWidgetState> = Widget<S> & ContainerMapMixin<C>;
 
-export interface ContainerMapWidgetOptions<C extends RenderableChild, S extends ContainerMapWidgetState> extends WidgetOptions<S> {
+export interface ContainerMapWidgetOptions<C extends Renderable, S extends ContainerMapWidgetState> extends WidgetOptions<S> {
 	/**
 	 * A map of children to be created and added to the container at creation time
 	 */
@@ -292,16 +292,16 @@ export interface ContainerMapWidgetState extends WidgetState {
 	children: { [label: string]: string; };
 }
 
-export type CreateWidgetList<W extends RenderableChild, O extends WidgetOptions<WidgetState>> = ([Factory<W, O>, O ] | [Factory<W, O>])[];
+export type CreateWidgetList<W extends Renderable, O extends WidgetOptions<WidgetState>> = ([Factory<W, O>, O ] | [Factory<W, O>])[];
 
-export interface CreateWidgetMap<W extends RenderableChild, O extends WidgetOptions<WidgetState>> {
+export interface CreateWidgetMap<W extends Renderable, O extends WidgetOptions<WidgetState>> {
 	[label: string]: {
 		factory: Factory<W, O>;
 		options?: O;
 	};
 }
 
-export interface CreateWidgetListOptions<C extends RenderableChild, O extends WidgetOptions<WidgetState>> {
+export interface CreateWidgetListOptions<C extends Renderable, O extends WidgetOptions<WidgetState>> {
 	/**
 	 * The factory to use in creating the child
 	 */
@@ -313,7 +313,7 @@ export interface CreateWidgetListOptions<C extends RenderableChild, O extends Wi
 	options?: O;
 }
 
-export interface CreateWidgetMapOptions<C extends RenderableChild, O extends WidgetOptions<WidgetState>> extends CreateWidgetListOptions<C, O> {
+export interface CreateWidgetMapOptions<C extends Renderable, O extends WidgetOptions<WidgetState>> extends CreateWidgetListOptions<C, O> {
 	/**
 	 * The label to assign the child to, if omitted, the child's `.id` property will be used
 	 */
@@ -323,11 +323,11 @@ export interface CreateWidgetMapOptions<C extends RenderableChild, O extends Wid
 /**
  * Interface that provides a map of widgets, used when returning from a creation API
  */
-export interface CreateWidgetResults<W extends RenderableChild> {
+export interface CreateWidgetResults<W extends Renderable> {
 	[label: string]: W;
 }
 
-export interface SubWidgetManager<W extends RenderableChild> {
+export interface SubWidgetManager<W extends Renderable> {
 	/**
 	 * Adds a sub widget to the widgets directly managed by the composite widget
 	 *
@@ -421,6 +421,14 @@ export interface WidgetMixin {
 	 * the `getNodeAttributes` method.
 	 */
 	nodeAttributes: NodeAttributeFunction[];
+
+	/**
+	 * Attach a listener to the invalidated event, which is emitted when the `.invalidate()` method is called
+	 *
+	 * @param type The event type to listen for
+	 * @param listener The listener to call when the event is emitted
+	 */
+	on(type: 'invalidated', listener: EventedListener<Widget<WidgetState>, EventTargettedObject<Widget<WidgetState>>>): Handle;
 
 	/**
 	 * A reference, if any, to the parent that currently *owns* this widget.
