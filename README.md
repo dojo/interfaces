@@ -1,20 +1,15 @@
 # dojo-interfaces
 
-<!-- TODO: change and uncomment
 [![Build Status](https://travis-ci.org/dojo/interfaces.svg?branch=master)](https://travis-ci.org/dojo/interfaces)
+
+<!--
 [![codecov](https://codecov.io/gh/dojo/interfaces/branch/master/graph/badge.svg)](https://codecov.io/gh/dojo/interfaces)
 [![npm version](https://badge.fury.io/js/dojo-interfaces.svg)](http://badge.fury.io/js/dojo-interfaces)
 -->
 
-TODO: Replace with a description of this package
-
-## Features
-
-TODO: Add sections on features of this package
-
-## How do I use this package?
-
-TODO: Add appropriate usage and instruction guidelines
+This package contain TypeScript interfaces and types that are widely used across Dojo 2 packages.  It is designed to make it
+easier to maintain these interfaces as well as build code that integrates well with the rest of the Dojo 2 packages without
+requiring a hard dependency on those other packages.
 
 ## How do I contribute?
 
@@ -23,30 +18,8 @@ Contributing Guidelines and Style Guide.
 
 ## Testing
 
-Test cases MUST be written using [Intern](https://theintern.github.io) using the Object test interface and Assert assertion interface.
-
-90% branch coverage MUST be provided for all code submitted to this repository, as reported by istanbul’s combined coverage results for all supported platforms.
-
-To test locally in node run:
-
-`grunt test`
-
-To test against browsers with a local selenium server run:
-
-`grunt test:local`
-
-To test against BrowserStack or Sauce Labs run:
-
-`grunt test:browserstack`
-
-or
-
-`grunt test:saucelabs`
+Since this is a type only package, we are currently working on the best way to test this package.
 
 ## Licensing information
-
-TODO: If third-party code was used to write this library, make a list of project names and licenses here
-
-* [Third-party lib one](https//github.com/foo/bar) ([New BSD](http://opensource.org/licenses/BSD-3-Clause))
 
 © 2004–2016 Dojo Foundation & contributors. [New BSD](http://opensource.org/licenses/BSD-3-Clause) license.
