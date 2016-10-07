@@ -1,6 +1,6 @@
 {
 	"name": "dojo-interfaces",
-	"description": "<< DESCRIPTION GOES HERE >>",
+	"description": "Common interfaces and types for Dojo 2",
 	"keywords": [
 		"dojo",
 		"dojo2"
