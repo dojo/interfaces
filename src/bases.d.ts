@@ -124,7 +124,7 @@ export type Stateful<S extends State> = StatefulMixin<S> & Evented & {
 	 * @param type The event type to listen for
 	 * @param listener The listener that will be called when the event occurs
 	 */
-	on(type: 'state:complete', listener: EventedListener<Stateful<S>, EventCancelableObject<'statecomplete', Stateful<S>>>): Handle;
+	on(type: 'state:completed', listener: EventedListener<Stateful<S>, EventCancelableObject<'statecomplete', Stateful<S>>>): Handle;
 
 	/**
 	 * Add a listener for a `statechange` event, which occures whenever the state changes on the instance.
@@ -132,7 +132,7 @@ export type Stateful<S extends State> = StatefulMixin<S> & Evented & {
 	 * @param type The event type to listen for
 	 * @param listener The listener that will be called when the event occurs
 	 */
-	on(type: 'state:change', listener: EventedListener<Stateful<S>, StateChangeEvent<S>>): Handle;
+	on(type: 'state:changed', listener: EventedListener<Stateful<S>, StateChangeEvent<S>>): Handle;
 }
 
 export interface StatefulMixin<S extends State>{
