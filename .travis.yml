@@ -12,13 +12,11 @@ cache:
   directories:
   - node_modules
 install:
-- travis_retry npm install grunt-cli
-- travis_retry npm install
+- npm install grunt-cli
+- npm install
 script:
 - grunt
 - grunt intern:node --combined
-- grunt remapIstanbul:ci
-- grunt uploadCoverage
 notifications:
   slack:
     secure: cftQkjMCdPyrJHI0CdECtPqog0z0TT5KKZky8DnhLpyPG7FM6NtvNZ8f6MRQAM4BQqzCEu/01nNbaBgqftiEBZmqzVs1tQFgrxKSlgkI6Fk1O8uxoh5h1c1YpQ6ireAGRsUOMM06gc/VxGEFzQ+SwULhZ3SZVJef2LNT5rbSRPZEligmiUVFz4ZHTGv7XG1A0TUn4/2itN6zaGMdSpKbJGlvopbP9uKfdJo65xrlfbiCZ9C/WVUm877cLBwg7yRQ53P70zwRdR224eti6nJp8d6r8hBr/Ta3RCKxk/Jgl2X2niKbc9HPRWJdZyL6NKYUgcfNzatK+wqI//+zN4Me5/o/1g8fo4oFlKS3elSHNLs4zouK5uBhRzOvk43hVswYIdJvqQPi+ZyX5ZLJDU9ViKXxcGLzwYfVkfpKXn+fhXRtJh3UD0q1sbcRjBI+PvRspdKQSvulmEbReGgxBnzB2pbnwSGrPD/ppQFruN0SPY+S9Pkn6hI9pP3bIFOcmCkFZ35sOeoVaW+4wfeHbFxXQTWWD6MNWnMWlh9JiF8IHdgc9mJcbbmRC/5DF7jPsvHbD5i8JDrNPn/WuUHje3Wte1vYt0jAgt3NQyCM3rdUAkGISZ1Cg0ZpbX9AM8JGfDsxw/igK9txhrVwhwQd0ENM734RwZKrB2oUHPT+O0mQ/yk=
