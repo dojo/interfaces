@@ -19,7 +19,7 @@ function isType(typeBundle: TypeWriterResult[], name: string, type: string, desc
 	const typeResult = typeBundle.find((result) => result.sourceText === name);
 	assert(
 		typeResult && typeResult.type === type,
-		`Unexpected type. Expected: "${type}" Actual: "${typeResult && typeResult.type}"${description && `. ${description}`}`,
+		`Unexpected type. Expected: "${type}" Actual: "${typeResult && typeResult.type}"${description ? `. ${description}` : ''}`,
 		type,
 		typeResult && typeResult.type,
 		true,

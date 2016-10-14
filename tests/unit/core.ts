@@ -1,4 +1,3 @@
-import * as assert from 'intern/chai!assert';
 import * as registerSuite from 'intern!object';
 import { getTypeForFiles } from '../support/util';
 import assertType from '../support/assertType';
@@ -9,7 +8,6 @@ registerSuite({
 		const file = 'src/core.d.ts';
 		const types = getTypeForFiles(file);
 		const coreTypes = types[file];
-		assert(coreTypes);
 		assertType.isType(coreTypes, 'EventCancelableObject', 'EventCancelableObject<T, U>');
 		assertType.isType(coreTypes, 'EventErrorObject', 'EventErrorObject<T>');
 		assertType.isType(coreTypes, 'EventObject', 'EventObject');
