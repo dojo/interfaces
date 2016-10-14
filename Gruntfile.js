@@ -20,7 +20,6 @@ module.exports = function (grunt) {
 		}
 
 		grunt.option('force', true);
-		grunt.task.run('clean:coverage');
 		grunt.task.run('dev');
 		setCombined(true);
 		flags.forEach((flag) => {
