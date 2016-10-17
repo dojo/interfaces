@@ -5,18 +5,14 @@ import {
 	WidgetState,
 	CompositeWidget,
 	CompositeWidgetOptions,
-	ContainerListWidget,
-	ContainerListWidgetOptions,
-	ContainerListWidgetState,
-	ContainerMapWidget,
-	ContainerMapWidgetOptions,
-	ContainerMapWidgetState
+	ContainerWidget,
+	ContainerWidgetOptions,
+	ContainerWidgetState
 } from '../src/widgetBases';
 
 declare const widget: Widget<WidgetState>;
 declare const compositeWidget: CompositeWidget<Widget<WidgetState>, WidgetState>;
-declare const containerListWidget: ContainerListWidget<Widget<WidgetState>, ContainerListWidgetState>;
-declare const containerMapWidget: ContainerMapWidget<Widget<WidgetState>, ContainerMapWidgetState>;
+declare const containerWidget: ContainerWidget<Widget<WidgetState>, ContainerWidgetState>;
 
 declare const createWidget: ComposeFactory<Widget<WidgetState>, WidgetOptions<WidgetState>>;
 declare const createCompositeWidget: ComposeFactory<
@@ -24,34 +20,26 @@ declare const createCompositeWidget: ComposeFactory<
 	CompositeWidgetOptions<Widget<WidgetState>, WidgetState>
 >;
 declare const createContainerListWidget: ComposeFactory<
-	ContainerListWidget<Widget<WidgetState>, ContainerListWidgetState>,
-	ContainerListWidgetOptions<Widget<WidgetState>, ContainerListWidgetState>
+	ContainerWidget<Widget<WidgetState>, ContainerWidgetState>,
+	ContainerWidgetOptions<Widget<WidgetState>, ContainerWidgetState>
 >;
-declare const createContainerMapWidget: ComposeFactory<
-	ContainerMapWidget<Widget<WidgetState>, ContainerMapWidgetState>,
-	ContainerMapWidgetOptions<Widget<WidgetState>, ContainerMapWidgetState>
->;
-
-/* 'first', 'last', number omit 3rd argument, 'before', 'after' require 3rd argument */
-containerListWidget.insert(widget, 'first');
-containerListWidget.insert(widget, 'before', widget);
 
 /* Interfaces allow ComposeFactory to be superset of Factory */
 
 /* interface validates child options */
-containerListWidget.createChild({ factory: createWidget, options: {
+containerWidget.createChild({ factory: createWidget, options: {
 	classes: [ 'foo' ]
 } });
 
 /* interface allows label with map widget, defaults to `widget.id` */
-containerMapWidget.createChild({ factory: createWidget, options: {}, label: 'foo' });
+containerWidget.createChild({ factory: createWidget, options: {}, label: 'foo' });
 
 /* Interfaces allow [ factory, options ] or just [ factory ] */
-containerListWidget.createChildren([ [ createWidget ] ]);
-containerListWidget.createChildren([ [ createWidget, { tagName: 'widget-bar' } ] ]);
+containerWidget.createChildren([ [ createWidget ] ]);
+containerWidget.createChildren([ [ createWidget, { tagName: 'widget-bar' } ] ]);
 
 /* creating children via a map */
-containerMapWidget.createChildren({
+containerWidget.createChildren({
 		foo: {
 			factory: createWidget,
 			options: {}
