@@ -12,7 +12,7 @@ export const proxyUrl = 'http://localhost:9000/';
 export const capabilities = {
 	'browserstack.debug': false,
 	project: 'Dojo 2',
-	name: 'dojo-<< package-name >>'
+	name: 'dojo-interfaces'
 };
 
 // Browsers to run integration testing against. Note that version numbers must be strings if used with Sauce
@@ -53,15 +53,13 @@ export const loaderOptions = {
 	packages: [
 		{ name: 'src', location: '_build/src' },
 		{ name: 'tests', location: '_build/tests' },
-		{ name: 'dojo', location: 'node_modules/intern/node_modules/dojo' }
+		{ name: 'dojo', location: 'node_modules/intern/node_modules/dojo' },
+		{ name: 'dojo-shim', location: 'node_modules/dojo-shim' }
 	]
 };
 
 // Non-functional test suite(s) to run in each browser
 export const suites = [ 'tests/unit/all' ];
-
-// Functional test suite(s) to run in each browser once non-functional tests are completed
-export const functionalSuites = [ 'tests/functional/all' ];
 
 // A regular expression matching URLs to files that should not be included in code coverage analysis
 export const excludeInstrumentation = /(?:node_modules|bower_components|tests)[\/\\]/;

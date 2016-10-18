@@ -28,10 +28,11 @@
     "maquette": "^2.4.1"
   },
   "devDependencies": {
+    "@types/assertion-error": "^1.0.30",
     "@types/chai": "3.4.*",
-    "@types/es6-shim": "0.0.*",
     "@types/glob": "5.0.*",
     "@types/grunt": "0.4.*",
+    "assertion-error": "^1.0.2",
     "dojo-compose": ">=2.0.0-beta",
     "dojo-core": ">=2.0.0-alpha",
     "dojo-has": ">=2.0.0-alpha",
