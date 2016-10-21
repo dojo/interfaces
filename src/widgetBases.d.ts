@@ -27,7 +27,7 @@ import { EventTargettedObject, Factory, Handle, StylesMap } from './core';
  * TODO: Should this behave more like a reducer (like above)?
  */
 export interface ChildNodeFunction {
-	(childrenNodes: (VNode | string)[]): (VNode | string)[];
+	(this: Widget<WidgetState>, childrenNodes: (VNode | string)[]): (VNode | string)[];
 }
 
 /**
@@ -43,7 +43,7 @@ export interface NodeAttributeFunction {
 	 *
 	 * @param attributes The current VNodeProperties that will be part of the render
 	 */
-	(attributes: VNodeProperties): VNodeProperties;
+	(this: Widget<WidgetState>, attributes: VNodeProperties): VNodeProperties;
 }
 
 export interface ChildrenChangeEvent<T> {
@@ -66,7 +66,7 @@ export interface CompositeManagerFunction<W extends Renderable, S extends Widget
 	 * @param type The lifecycle stage of the composite widget, which the manager can modify
 	 *             its behaviour to reflect this stage
 	 */
-	(instance: CompositeWidget<W, S>, type: 'initialized' | 'changed' | 'completed'): void;
+	(this: CompositeWidget<W, S>, type: 'initialized' | 'changed' | 'completed'): void;
 }
 
 export interface CompositeMixin<W extends Renderable, S extends WidgetState> {
