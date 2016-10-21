@@ -62,10 +62,11 @@ export interface CompositeManagerFunction<W extends Renderable, S extends Widget
 	/**
 	 * A function which allows the management of the subwidgets of a composite widget
 	 *
-	 * @param widgets A reference to the subwidget manager for the instance
-	 * @param widgets A reference to the composite widget instance
+	 * @param instance A reference to the composite widget instance
+	 * @param type The lifecycle stage of the composite widget, which the manager can modify
+	 *             its behaviour to reflect this stage
 	 */
-	(widgets: SubWidgetManager<W>, instance: CompositeWidget<W, S>): void;
+	(instance: CompositeWidget<W, S>, type: 'initialized' | 'changed' | 'completed'): void;
 }
 
 export interface CompositeMixin<W extends Renderable, S extends WidgetState> {
