@@ -183,5 +183,7 @@ export interface StatefulMixin<S extends State>{
 }
 
 export interface StatefulOptions<S extends State> {
+	id?: string;
 	state?: S;
+	stateFrom?: StoreObservablePatchable<S>;
 }

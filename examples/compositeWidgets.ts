@@ -59,20 +59,21 @@ const manageLabel: CompositeManagerFunction<Label, CompositeLabelMixinState> = f
 	type: 'initialized' | 'changed' | 'completed' /* the three lifecycle types */
 ) {
 	const label = this.state.label;
-	const forId = this.state.id;
+	const forId = `input-${this.state.id}`;
+	const state: LabelState = { label, for: forId };
 	if (type === 'initialized') {
 		/* for managing sub-widgets, there is the instance.widget interface, where we can create/add/get our sub widgets */
 		this.widgets.create({
 			label: 'label', /* local namespace reference */
 			options: {
-				state: { label, for: forId }
+				state
 			},
 			factory: createLabel
 		}); /* widgets.create will manage the destruction handlers for use, so we don't have to worry */
 	}
 	else if (type === 'changed') {
 		/* here we can get our reference to the subwidget */
-		this.widgets.get('label').setState({ label, for: forId });
+		this.widgets.get('label').setState(state);
 	}
 };
 
@@ -161,3 +162,84 @@ const compositeLabelList = createCompositeLabelList({
 });
 
 compositeLabelList.widgets.size === 3;
+
+/* -- What if I want a text box and and a label composite widget -- */
+
+/* == Textbox == */
+
+type TextboxState = WidgetState & { value?: string, name?: string };
+
+type Textbox = Widget<TextboxState>;
+
+const renderTextboxValue: ChildNodeFunction = function renderLabel(this: Textbox): (VNode | string)[] {
+	return [ this.state.value ];
+};
+
+const textboxAttributes: NodeAttributeFunction = function labelAttributes(this: Textbox): VNodeProperties {
+	return {
+		type: 'text',
+		name: this.state.name
+	};
+};
+
+const createTextbox: ComposeFactory<Textbox, WidgetOptions<TextboxState>> = createWidget
+	.mixin({
+		mixin: {
+			childNodeRenderers: [ renderTextboxValue ],
+			className: 'Textbox',
+			nodeAttributes: [ textboxAttributes ]
+		}
+	});
+
+/* == CompositeTextboxMixin == */
+
+type CompositeTextboxMixinState = { value?: string; id?: string; };
+
+const manageTextbox: CompositeManagerFunction<Textbox, CompositeTextboxMixinState> = function manageLabel(
+	this: CompositeWidget<Textbox, CompositeTextboxMixinState>,
+	type: 'initialized' | 'changed' | 'completed'
+) {
+	const value = this.state.value;
+	const id = `input-${this.state.id}`;
+	const state: TextboxState = { value, id, name: id };
+	if (type === 'initialized') {
+		this.widgets.create({
+			label: 'textbox',
+			options: { state },
+			factory: createTextbox
+		});
+	}
+	else if (type === 'changed') {
+		this.widgets.get('textbox').setState(state);
+	}
+};
+
+const createCompositeTextboxMixin = compose('CompositeTextboxMixin', {
+	managers: [ manageTextbox ]
+});
+
+/* == LabelTextbox == */
+
+type LabelTextboxState = WidgetState & CompositeLabelMixinState & CompositeTextboxMixinState;
+
+type LabelTextbox = CompositeWidget<Widget<WidgetState>, LabelTextboxState>;
+
+type LabelTextboxOptions = CompositeWidgetOptions<Widget<WidgetState>, LabelTextboxState>;
+
+const createLabelTextbox: ComposeFactory<LabelTextbox, LabelTextboxOptions> = createCompositeWidget
+	.mixin(createCompositeLabelMixin)
+	.mixin({
+		className: 'LabelTextbox',
+		mixin: createCompositeTextboxMixin
+	});
+
+/* create an instance */
+const labelTextbox = createLabelTextbox({
+	id: 'labelTextbox',
+	state: {
+		label: 'My Textbox',
+		value: 'foo'
+	}
+});
+
+labelTextbox.render();
