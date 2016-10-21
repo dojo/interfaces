@@ -364,6 +364,11 @@ export interface SubWidgetManager<W extends Renderable> {
 	 * Returns `true` if the label is currently registered with the composite widget, otherwise returns `false`
 	 */
 	has(label: string): boolean;
+
+	/**
+	 * Returns the number of widgets that are being directly managed by the composite widget
+	 */
+	readonly size: number;
 }
 
 export type Widget<S extends WidgetState> = Stateful<S> & WidgetMixin;
