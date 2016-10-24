@@ -9,7 +9,6 @@ import {
 	CompositeManagerFunction,
 	NodeAttributeFunction
 } from '../src/widgetBases';
-import Promise from 'dojo-shim/Promise';
 import { VNode, VNodeProperties } from 'maquette';
 
 declare const compositeWidget: CompositeWidget<Widget<WidgetState>, WidgetState>;
@@ -105,63 +104,6 @@ const createCompositeLabel: ComposeFactory<CompositeLabel, CompositeLabelOptions
 const labelWidget = createCompositeLabel();
 
 labelWidget.render();
-
-/* -- What if I wanted "n" labels, and didn't plan to reuse the manager logic? -- */
-
-type CompositeLabelListState = WidgetState & { labels?: string[] };
-
-/* bake all the logic into a single manager function */
-const manageLabelList: CompositeManagerFunction<Label, CompositeLabelListState> = function manageLabelList(
-	this: CompositeLabelList, /* this is what we think we will have at runtime */
-	type: 'initialized' | 'changed' | 'completed' /* the three lifecycle types */
-) {
-	if (type === 'completed') {
-		return;
-	}
-	/* there maybe more efficient ways to deal with this, but you get the idea */
-	const widgets = this.widgets;
-	const currentSize = widgets.size;
-	const labels = this.state.labels;
-	const labelsLength = (labels && labels.length) || 0;
-	const promises: Promise<any>[] = [];
-
-	if (currentSize < labelsLength) {
-		for (let i = (currentSize - 1); i < labelsLength; i++) {
-			promises.push(widgets.create({
-				factory: createLabel,
-				label: String(i)
-			}));
-		}
-	}
-	else if (currentSize > labelsLength) {
-		for (let i = (labelsLength - 1); i < currentSize; i++) {
-			widgets.get(String(i)).destroy();
-		}
-	}
-
-	Promise.all(promises).then(() => {
-		labels.forEach((label, idx) => {
-			widgets.get(String(idx)).setState({ label });
-		});
-	});
-};
-
-type CompositeLabelList = CompositeWidget<Label, CompositeLabelListState>;
-
-const createCompositeLabelList: ComposeFactory<CompositeLabelList, WidgetOptions<CompositeLabelListState>> = createCompositeWidget
-	.mixin({
-		className: 'CompositeLabelList',
-		mixin: {
-			managers: [ manageLabelList ]
-		}
-	});
-
-/* now we will have a label subwidget for every label in the `labels` array */
-const compositeLabelList = createCompositeLabelList({
-	state: { labels: [ 'foo', 'bar', 'baz' ] }
-});
-
-compositeLabelList.widgets.size === 3;
 
 /* -- What if I want a text box and and a label composite widget -- */
 
