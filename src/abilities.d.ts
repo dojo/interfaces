@@ -6,7 +6,7 @@
  */
 
 import Promise from 'dojo-shim/Promise';
-import { List, Map } from 'immutable';
+import Map from 'dojo-shim/Map';
 import { VNode } from 'maquette';
 import { Destroyable, EventedListener } from './bases';
 import { EventTargettedObject, Handle } from './core';
@@ -81,7 +81,7 @@ export interface RenderableParent extends Renderable {
 	/**
 	 * The immutable list of children *owned* by the parent
 	 */
-	readonly children: Map<string, Renderable> | List<Renderable>;
+	readonly children: Map<string, Renderable>;
 }
 
 export interface StoreObservable<T> {
