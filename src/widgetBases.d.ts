@@ -141,16 +141,16 @@ export interface ContainerWidgetMixin<C extends Renderable> {
 	 *
 	 * @param child The child to set
 	 */
-	set(child: C | C[]): Handle;
+	set(child: C | C[] | { [label: string]: C }): Handle;
 
 	/**
 	 * Set a child to the end of the children associated with this widget, using the supplied string as the label for
 	 * the child.
 	 *
 	 * @param label The label for the child
-	 * @param child The child to append
+	 * @param child The child to set
 	 */
-	set(label: string, child: C | C[]): Handle;
+	set(label: string, child: C): Handle;
 
 	/**
 	 * Called (if present) when children are rendered to ensure that the children are rendered in the correct order.

@@ -26,17 +26,18 @@ declare const createContainerListWidget: ComposeFactory<
 
 /* Interfaces allow ComposeFactory to be superset of Factory */
 
-/* interface validates child options */
-containerWidget.createChild({ factory: createWidget, options: {
-	classes: [ 'foo' ]
-} });
-
-/* interface allows label with map widget, defaults to `widget.id` */
-containerWidget.createChild({ factory: createWidget, options: {}, label: 'foo' });
-
 /* Interfaces allow [ factory, options ] or just [ factory ] */
 containerWidget.createChildren([ [ createWidget ] ]);
 containerWidget.createChildren([ [ createWidget, { tagName: 'widget-bar' } ] ]);
+
+/* Setting children directly via set */
+const childWidget = createWidget();
+containerWidget.set(childWidget);
+containerWidget.set([ childWidget ]);
+containerWidget.set({
+	foo: childWidget
+});
+containerWidget.set('foo', childWidget);
 
 /* creating children via a map */
 containerWidget.createChildren({
