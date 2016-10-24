@@ -1,6 +1,16 @@
 module.exports = function (grunt) {
+	const distTasks = [
+		'clean:typings',
+		'typings',
+		'tslint',
+		'clean:dist',
+		'ts:dist',
+		'fixSourceMaps',
+		'copy:staticDefinitionFiles'
+	];
+
 	require('grunt-dojo2').initConfig(grunt, {
-		/* any custom configuration goes here */
+		distTasks
 	});
 
 	function setCombined(combined) {
