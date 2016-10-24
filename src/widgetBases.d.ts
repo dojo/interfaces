@@ -26,7 +26,7 @@ import { EventTargettedObject, Factory, Handle, StylesMap } from './core';
  * TODO: Should this behave more like a reducer (like above)?
  */
 export interface ChildNodeFunction {
-	(childrenNodes: (VNode | string)[]): (VNode | string)[];
+	(this: Widget<WidgetState>, childrenNodes: (VNode | string)[]): (VNode | string)[];
 }
 
 /**
@@ -42,7 +42,7 @@ export interface NodeAttributeFunction {
 	 *
 	 * @param attributes The current VNodeProperties that will be part of the render
 	 */
-	(attributes: VNodeProperties): VNodeProperties;
+	(this: Widget<WidgetState>, attributes: VNodeProperties): VNodeProperties;
 }
 
 export interface ChildrenChangeEvent<T> {
@@ -61,10 +61,11 @@ export interface CompositeManagerFunction<W extends Renderable, S extends Widget
 	/**
 	 * A function which allows the management of the subwidgets of a composite widget
 	 *
-	 * @param widgets A reference to the subwidget manager for the instance
-	 * @param widgets A reference to the composite widget instance
+	 * @param instance A reference to the composite widget instance
+	 * @param type The lifecycle stage of the composite widget, which the manager can modify
+	 *             its behaviour to reflect this stage
 	 */
-	(widgets: SubWidgetManager<W>, instance: CompositeWidget<W, S>): void;
+	(this: CompositeWidget<W, S>, type: 'initialized' | 'changed' | 'completed'): void;
 }
 
 export interface CompositeMixin<W extends Renderable, S extends WidgetState> {
@@ -263,6 +264,11 @@ export interface SubWidgetManager<W extends Renderable> {
 	 * @param widget The instance of the widget to add
 	 */
 	set(label: string, widget: W): Handle;
+
+	/**
+	 * Returns the number of widgets that are being directly managed by the composite widget
+	 */
+	readonly size: number;
 }
 
 export type Widget<S extends WidgetState> = Stateful<S> & WidgetMixin;

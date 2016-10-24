@@ -103,7 +103,19 @@ export interface State {
 	[key: string]: any;
 }
 
-export interface StateChangeEvent<S> extends EventTypedObject<'statechange'> {
+export interface StateChangeEvent<S> extends EventTypedObject<'state:changed'> {
+	/**
+	 * The state of the target
+	 */
+	state: S;
+
+	/**
+	 * A Stateful instance
+	 */
+	target: Stateful<S>;
+}
+
+export interface StateInitalizedEvent<S> extends EventTypedObject<'state:initialized'> {
 	/**
 	 * The state of the target
 	 */
@@ -117,22 +129,32 @@ export interface StateChangeEvent<S> extends EventTypedObject<'statechange'> {
 
 export type Stateful<S extends State> = StatefulMixin<S> & Evented & {
 	/**
-	 * Add a listener for a `statecomplete` event, which occures when state is observed
+	 * Add a listener for a `state:changed` event, which occurs whenever the state changes on the instance.
+	 *
+	 * @param type The event type to listen for
+	 * @param listener The listener that will be called when the event occurs
+	 */
+	on(type: 'state:changed', listener: EventedListener<Stateful<S>, StateChangeEvent<S>>): Handle;
+
+	/**
+	 * Add a listener for a `state:completed` event, which occurs when state is observed
 	 * and is completed.  If the event is not cancelled, the instance will continue and
 	 * call `target.destroy()`.
 	 *
 	 * @param type The event type to listen for
 	 * @param listener The listener that will be called when the event occurs
 	 */
-	on(type: 'state:completed', listener: EventedListener<Stateful<S>, EventCancelableObject<'statecomplete', Stateful<S>>>): Handle;
+	on(type: 'state:completed', listener: EventedListener<Stateful<S>, EventCancelableObject<'state:completed', Stateful<S>>>): Handle;
 
 	/**
-	 * Add a listener for a `statechange` event, which occures whenever the state changes on the instance.
+	 * Add a listener for a `state:initialized` event, which occurs when state Statful has finished fully setting up
+	 * `instance.state` during creation.  This will always occur out of turn (asnyc) from the creation cycle, to ensure
+	 * that listeners can be attached during initialization.
 	 *
 	 * @param type The event type to listen for
 	 * @param listener The listener that will be called when the event occurs
 	 */
-	on(type: 'state:changed', listener: EventedListener<Stateful<S>, StateChangeEvent<S>>): Handle;
+	on(type: 'state:initialized', listener: EventedListener<Stateful<S>, StateInitalizedEvent<S>>): Handle;
 }
 
 export interface StatefulMixin<S extends State>{
@@ -161,5 +183,7 @@ export interface StatefulMixin<S extends State>{
 }
 
 export interface StatefulOptions<S extends State> {
+	id?: string;
 	state?: S;
+	stateFrom?: StoreObservablePatchable<S>;
 }
