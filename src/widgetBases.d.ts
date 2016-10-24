@@ -180,10 +180,7 @@ export interface ContainerWidgetOptions<C extends Renderable, S extends Containe
 	/**
 	 * A list of children to be created and added to the container at creation time
 	 */
-	createChildren?: [Factory<C, WidgetOptions<WidgetState>>, WidgetOptions<WidgetState> ]
-		| [Factory<C, WidgetOptions<WidgetState>>]
-		| CreateWidgetList<C, WidgetOptions<WidgetState>>
-		| CreateWidgetMap<C, WidgetOptions<WidgetState>>;
+	createChildren?: CreateWidgetList<C, WidgetOptions<WidgetState>> | CreateWidgetMap<C, WidgetOptions<WidgetState>>;
 
 	/**
 	 * Provide a sort function for this instance which will sort the children renders at render time
