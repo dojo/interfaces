@@ -24,7 +24,6 @@
   },
   "peerDependencies": {
     "dojo-shim": ">=2.0.0-beta",
-    "immutable": "^3.8.1",
     "maquette": "^2.4.1"
   },
   "devDependencies": {

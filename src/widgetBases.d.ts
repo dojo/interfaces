@@ -13,7 +13,7 @@
  */
 
 import Promise from 'dojo-shim/Promise';
-import { OrderedMap } from 'immutable';
+import Map from 'dojo-shim/Map';
 import { VNode, VNodeProperties } from 'maquette';
 import { Renderable, RenderableParent } from './abilities';
 import { EventedListener, State, Stateful, StatefulOptions } from './bases';
@@ -107,9 +107,9 @@ export interface CompositeWidgetOptions<W extends Renderable, S extends WidgetSt
 
 export interface ContainerWidgetMixin<C extends Renderable> {
 	/**
-	 * An immutable ordered map of children *owned* by the widget
+	 * A map of children *owned* by the widget
 	 */
-	readonly children: OrderedMap<string, C>;
+	readonly children: Map<string, C>;
 
 	/**
 	 * Remove all the children from the widget, but do not destroy them
