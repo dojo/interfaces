@@ -117,13 +117,6 @@ export interface ContainerWidgetMixin<C extends Renderable> {
 	clear(): void;
 
 	/**
-	 * Create a child and add it to the children owned by this widget
-	 *
-	 * @param options The `factory` and possibly `options` to pass the factory upon construction
-	 */
-	createChild<D extends C, O extends WidgetOptions<WidgetState>>(options: CreateWidgetOptions<D, O>): Promise<[string, D]>;
-
-	/**
 	 * Create a list or map of children and add them to the children owned by this widget
 	 *
 	 * @param children A tuple list of children made up of the factory and the options to pass to the factory or a map of
