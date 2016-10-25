@@ -10,6 +10,7 @@ registerSuite({
 		const basesTypes = types[file];
 		assertType.isType(basesTypes, 'Destroyable', 'Destroyable');
 		assertType.isType(basesTypes, 'Evented', 'Evented');
+		assertType.isType(basesTypes, 'EventedOptions', 'EventedOptions');
 		assertType.isType(basesTypes, 'EventedCallback', 'EventedCallback<E>');
 		assertType.isType(basesTypes, 'EventedListenersMap', 'EventedListenersMap<T>');
 		assertType.isType(basesTypes, 'EventedListenerOrArray', 'EventedListenerOrArray<T, E>');
