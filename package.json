@@ -22,10 +22,6 @@
     "prepublish": "grunt peerDepInstall",
     "test": "grunt test"
   },
-  "peerDependencies": {
-    "dojo-shim": ">=2.0.0-beta",
-    "maquette": "^2.4.1"
-  },
   "devDependencies": {
     "@types/assertion-error": "^1.0.30",
     "@types/chai": "3.4.*",
@@ -36,9 +32,11 @@
     "dojo-core": ">=2.0.0-alpha",
     "dojo-has": ">=2.0.0-alpha",
     "dojo-loader": ">=2.0.0-beta.7",
+    "dojo-shim": ">=2.0.0-beta",
     "grunt": "~1.0.1",
     "grunt-dojo2": ">=2.0.0-beta.19",
     "intern": "^3.2.3",
+    "maquette": "^2.4.1",
     "tslint": "^3.11.0",
     "typescript": "~2.0.3"
   }
