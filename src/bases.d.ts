@@ -71,6 +71,13 @@ export interface Evented extends Destroyable {
 	on(type: string, listener: EventedListenerOrArray<this, EventTargettedObject<this>>): Handle;
 }
 
+/**
+ * Evented options interface
+ */
+export interface EventedOptions {
+	listeners?: EventedListenersMap<any>;
+}
+
 export interface EventedCallback<E extends EventObject> {
 	/**
 	 * A callback that takes an `event` argument
@@ -182,7 +189,7 @@ export interface StatefulMixin<S extends State>{
 	observeState(id: string, observable: StoreObservablePatchable<S>): Handle;
 }
 
-export interface StatefulOptions<S extends State> {
+export interface StatefulOptions<S extends State> extends EventedOptions {
 	id?: string;
 	state?: S;
 	stateFrom?: StoreObservablePatchable<S>;
