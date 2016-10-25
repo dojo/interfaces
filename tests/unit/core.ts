@@ -16,6 +16,7 @@ registerSuite({
 		assertType.isType(coreTypes, 'Factory', 'Factory<T, O>');
 		assertType.isType(coreTypes, 'InsertPosition', 'InsertPosition');
 		assertType.isType(coreTypes, 'Handle', 'Handle');
+		assertType.isType(coreTypes, 'Hash', 'Hash<T>');
 		assertType.isType(coreTypes, 'StylesMap', 'StylesMap');
 	}
 });
