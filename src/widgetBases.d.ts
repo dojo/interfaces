@@ -14,10 +14,10 @@
 
 import Promise from 'dojo-shim/Promise';
 import Map from 'dojo-shim/Map';
-import { VNode, VNodeProperties } from 'maquette';
 import { Renderable, RenderableParent } from './abilities';
 import { EventedListener, State, Stateful, StatefulOptions } from './bases';
 import { EventTargettedObject, Factory, Handle, StylesMap } from './core';
+import { VNode, VNodeProperties } from './vdom';
 
 /**
  * A function that is called when collecting the children nodes on render, accepting the current list of
