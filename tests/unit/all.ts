@@ -3,5 +3,6 @@ import './bases';
 import './core';
 import './loader';
 import './observables';
+import './shim';
 import './vdom';
 import './widgetBases';
