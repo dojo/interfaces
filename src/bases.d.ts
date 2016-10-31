@@ -40,7 +40,7 @@ export interface Evented extends Destroyable {
 	 *
 	 * @param event The `EventTargettedObject` to be delivered to listeners based on `event.type`
 	 */
-	emit(event: EventObject): void;
+	emit<E extends EventObject>(event: E): void;
 
 	/**
 	 * Attach a map to events *types* specified by the key of the map and the value being the *listener* or
