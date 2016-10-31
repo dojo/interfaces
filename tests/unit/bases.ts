@@ -14,8 +14,8 @@ registerSuite({
 		assertType.isType(basesTypes, 'EventedCallback', 'EventedCallback<E>');
 		assertType.isType(basesTypes, 'EventedListenersMap', 'EventedListenersMap<T>');
 		assertType.isType(basesTypes, 'EventedListenerOrArray', 'EventedListenerOrArray<T, E>');
-		assertType.isType(basesTypes, 'StateChangeEvent', 'StateChangeEvent<S>');
-		assertType.isType(basesTypes, 'StateInitalizedEvent', 'StateInitalizedEvent<S>');
+		assertType.isType(basesTypes, 'StateChangeEvent', 'StateChangeEvent<S, T>');
+		assertType.isType(basesTypes, 'StateInitalizedEvent', 'StateInitalizedEvent<S, T>');
 		assertType.isType(basesTypes, 'Stateful', 'Stateful<S>');
 		assertType.isType(basesTypes, 'StatefulMixin', 'StatefulMixin<S>');
 		assertType.isType(basesTypes, 'StatefulOptions', 'StatefulOptions<S>');

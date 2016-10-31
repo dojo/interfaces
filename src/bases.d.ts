@@ -110,7 +110,7 @@ export interface State {
 	[key: string]: any;
 }
 
-export interface StateChangeEvent<S> extends EventTypedObject<'state:changed'> {
+export interface StateChangeEvent<S, T extends Stateful<S>> extends EventTypedObject<'state:changed'> {
 	/**
 	 * The state of the target
 	 */
@@ -119,10 +119,10 @@ export interface StateChangeEvent<S> extends EventTypedObject<'state:changed'> {
 	/**
 	 * A Stateful instance
 	 */
-	target: Stateful<S>;
+	target: T;
 }
 
-export interface StateInitalizedEvent<S> extends EventTypedObject<'state:initialized'> {
+export interface StateInitalizedEvent<S, T extends Stateful<S>> extends EventTypedObject<'state:initialized'> {
 	/**
 	 * The state of the target
 	 */
@@ -131,7 +131,7 @@ export interface StateInitalizedEvent<S> extends EventTypedObject<'state:initial
 	/**
 	 * A Stateful instance
 	 */
-	target: Stateful<S>;
+	target: T;
 }
 
 export type Stateful<S extends State> = StatefulMixin<S> & Evented & {
@@ -141,7 +141,7 @@ export type Stateful<S extends State> = StatefulMixin<S> & Evented & {
 	 * @param type The event type to listen for
 	 * @param listener The listener that will be called when the event occurs
 	 */
-	on(type: 'state:changed', listener: EventedListener<Stateful<S>, StateChangeEvent<S>>): Handle;
+	on(type: 'state:changed', listener: EventedListener<Stateful<S>, StateChangeEvent<S, Stateful<S>>>): Handle;
 
 	/**
 	 * Add a listener for a `state:completed` event, which occurs when state is observed
@@ -161,7 +161,7 @@ export type Stateful<S extends State> = StatefulMixin<S> & Evented & {
 	 * @param type The event type to listen for
 	 * @param listener The listener that will be called when the event occurs
 	 */
-	on(type: 'state:initialized', listener: EventedListener<Stateful<S>, StateInitalizedEvent<S>>): Handle;
+	on(type: 'state:initialized', listener: EventedListener<Stateful<S>, StateInitalizedEvent<S, Stateful<S>>>): Handle;
 }
 
 export interface StatefulMixin<S extends State>{
