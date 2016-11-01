@@ -49,7 +49,7 @@ export interface Evented extends Destroyable {
 	 * @param listeners An object which contains key value pairs of event types and listeners.
 	 * @returns A handle which can be used to remove the listeners
 	 */
-	on(listeners: EventedListenersMap<this>): Handle;
+	on<T>(listeners: EventedListenersMap<T>): Handle;
 
 	/**
 	 * Attach a listener (or array of listeners) to an `error` event.
@@ -58,7 +58,7 @@ export interface Evented extends Destroyable {
 	 * @param listener A listener or array of listeners that accept error events
 	 * @returns A handle which can be used to remove the listeners
 	 */
-	on(type: 'error', listener: EventedListenerOrArray<this, EventErrorObject<this>>): Handle;
+	on<T extends Evented>(type: 'error', listener: EventedListenerOrArray<T, EventErrorObject<T>>): Handle;
 
 	/**
 	 * Attach a `listener` to a particular event `type`.
@@ -68,7 +68,7 @@ export interface Evented extends Destroyable {
 	 *                 or an array of of such listeners.
 	 * @returns A handle which can be used to remove the listener
 	 */
-	on(type: string, listener: EventedListenerOrArray<this, EventTargettedObject<this>>): Handle;
+	on<T>(type: string, listener: EventedListenerOrArray<T, EventTargettedObject<T>>): Handle;
 }
 
 /**
