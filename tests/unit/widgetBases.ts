@@ -11,9 +11,11 @@ registerSuite({
 		assertType.isType(widgetBasesTypes, 'ChildNodeFunction', 'ChildNodeFunction');
 		assertType.isType(widgetBasesTypes, 'NodeAttributeFunction', 'NodeAttributeFunction');
 		assertType.isType(widgetBasesTypes, 'ChildrenChangeEvent', 'ChildrenChangeEvent<T>');
-		assertType.isType(widgetBasesTypes, 'CompositeManagerFunction', 'CompositeManagerFunction<W, S>');
-		assertType.isType(widgetBasesTypes, 'CompositeMixin', 'CompositeMixin<W, S>');
-		assertType.isType(widgetBasesTypes, 'CompositeWidget', 'CompositeWidget<W, S>');
+		assertType.isType(widgetBasesTypes, 'VWrapper', 'VWrapper');
+		assertType.isType(widgetBasesTypes, 'WWrapper', 'WWrapper');
+		assertType.isType(widgetBasesTypes, 'DWrapper', 'DWrapper');
+		assertType.isType(widgetBasesTypes, 'CompositeMixin', 'CompositeMixin');
+		assertType.isType(widgetBasesTypes, 'CompositeWidget', 'CompositeWidget<S>');
 		assertType.isType(widgetBasesTypes, 'ContainerWidgetMixin', 'ContainerWidgetMixin<C>');
 		assertType.isType(widgetBasesTypes, 'ContainerWidget', 'ContainerWidget<C, S>');
 		assertType.isType(widgetBasesTypes, 'ContainerWidgetOptions', 'ContainerWidgetOptions<C, S>');
