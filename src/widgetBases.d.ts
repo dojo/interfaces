@@ -30,6 +30,13 @@ export interface ChildNodeFunction {
 }
 
 /**
+ * A function that is called when collecting all the DWrappers to render within a composite widget.
+ */
+export interface DWrapperFunction {
+	(this: CompositeWidget<WidgetState>): DWrapper[];
+}
+
+/**
  * A function that is called when collecting the node attributes on render, accepting the current map of
  * attributes and returning a set of VNode properties that should mixed into the current attributes.
  *
@@ -55,55 +62,6 @@ export interface ChildrenChangeEvent<T> {
 	 * The type of the event
 	 */
 	type: 'children:changed';
-}
-
-export interface CompositeManagerFunction<W extends Renderable, S extends WidgetState> {
-	/**
-	 * A function which allows the management of the subwidgets of a composite widget
-	 *
-	 * @param instance A reference to the composite widget instance
-	 * @param type The lifecycle stage of the composite widget, which the manager can modify
-	 *             its behaviour to reflect this stage
-	 */
-	(this: CompositeWidget<W, S>, type: 'initialized' | 'changed' | 'completed'): void;
-}
-
-export interface CompositeMixin<W extends Renderable, S extends WidgetState> {
-	/**
-	 * Signal to the composite widget that it needs to ensure that it is an internally consistent state.
-	 *
-	 * This method is usually called during a state change of the composite widget and is the signal that
-	 * the composite widget should update the state of its subwidgets.
-	 */
-	manage(): void;
-
-	/**
-	 * An array of functions which allow mixins to provide logic that should be run as part of the manage
-	 * cycle of the composite widget
-	 */
-	managers: CompositeManagerFunction<W, S>[];
-
-	/**
-	 * A sub interface which allows management of the subwidgets of this composite widget
-	 */
-	readonly widgets: SubWidgetManager<W>;
-}
-
-/**
- * The *final* type for the CompositeWidget
- */
-export type CompositeWidget<W extends Renderable, S extends WidgetState> = Widget<S> & CompositeMixin<W, S>;
-
-export interface CompositeWidgetOptions<W extends Renderable, S extends WidgetState> extends WidgetOptions<S> {
-	/**
-	 * Any widget manager functions that should be added to this instance
-	 */
-	managers?: CompositeManagerFunction<W, S> | CompositeManagerFunction<W, S>[];
-
-	/**
-	 * A map of widgets that should be created as subwidgets during the instantiation of this instance
-	 */
-	widgets?: CreateWidgetMap<W, WidgetOptions<WidgetState>>;
 }
 
 export interface ContainerWidgetMixin<C extends Renderable> {
@@ -270,6 +228,54 @@ export interface SubWidgetManager<W extends Renderable> {
 	 */
 	readonly size: number;
 }
+
+export interface VWrapper {
+	/**
+	 * Specified children
+	 */
+	children: (VNode | DWrapper)[];
+
+	/**
+	 * render function that wraps returns VNode
+	 */
+	render(): VNode;
+}
+
+export interface WWrapper {
+	/**
+	 * Factory to create a widget
+	 */
+	factory: Factory<Widget<WidgetState>, WidgetOptions<WidgetState>>;
+
+	/**
+	 * Options used to create factory a widget
+	 */
+	options: WidgetOptions<WidgetState>;
+}
+
+export type DWrapper = VWrapper | WWrapper;
+
+export interface CompositeMixin {
+	/**
+	 * Array of functions that return children as DWrappers
+	 */
+	children: DWrapperFunction[];
+
+	/**
+	 * Accepts a DWrapper object and returns the approproate VNode
+	 */
+	getVNode(child: DWrapper): VNode;
+
+	/**
+	 * Prune empty children and manage them accordingly
+	 */
+	pruneChildren(): void;
+}
+
+/**
+ * The *final* type for the CompositeWidget
+ */
+export type CompositeWidget<S extends WidgetState> = Widget<S> & CompositeMixin;
 
 export type Widget<S extends WidgetState> = Stateful<S> & WidgetMixin;
 
