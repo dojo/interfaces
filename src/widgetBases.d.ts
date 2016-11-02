@@ -26,14 +26,7 @@ import { VNode, VNodeProperties } from './vdom';
  * TODO: Should this behave more like a reducer (like above)?
  */
 export interface ChildNodeFunction {
-	(this: Widget<WidgetState>, childrenNodes: (VNode | string)[]): (VNode | string)[];
-}
-
-/**
- * A function that is called when collecting all the DWrappers to render within a composite widget.
- */
-export interface DWrapperFunction {
-	(this: CompositeWidget<WidgetState>): DWrapper[];
+	(this: Widget<WidgetState>): DWrapper[] | VNode[];
 }
 
 /**
@@ -255,11 +248,26 @@ export interface WWrapper {
 
 export type DWrapper = VWrapper | WWrapper;
 
-export interface CompositeMixin {
+export type Widget<S extends WidgetState> = Stateful<S> & WidgetMixin & WidgetOverloads;
+
+export interface WidgetOverloads {
 	/**
-	 * Array of functions that return children as DWrappers
+	 * Attach a listener to the invalidated event, which is emitted when the `.invalidate()` method is called
+	 *
+	 * @param type The event type to listen for
+	 * @param listener The listener to call when the event is emitted
 	 */
-	children: DWrapperFunction[];
+	on(type: 'invalidated', listener: EventedListener<Widget<WidgetState>, EventTargettedObject<Widget<WidgetState>>>): Handle;
+}
+
+export interface WidgetMixin {
+	/**
+	 * An array of child node render functions which are executed on a render to generate the children
+	 * nodes.  These are intended to be "static" and bound to the class, making it easy for mixins to
+	 * alter the behaviour of the render process without needing to override or aspect the `getChildrenNodes`
+	 * method.
+	 */
+	childNodeRenderers: ChildNodeFunction[];
 
 	/**
 	 * Accepts a DWrapper object and returns the approproate VNode
@@ -270,23 +278,6 @@ export interface CompositeMixin {
 	 * Prune empty children and manage them accordingly
 	 */
 	pruneChildren(): void;
-}
-
-/**
- * The *final* type for the CompositeWidget
- */
-export type CompositeWidget<S extends WidgetState> = Widget<S> & CompositeMixin;
-
-export type Widget<S extends WidgetState> = Stateful<S> & WidgetMixin;
-
-export interface WidgetMixin {
-	/**
-	 * An array of child node render functions which are executed on a render to generate the children
-	 * nodes.  These are intended to be "static" and bound to the class, making it easy for mixins to
-	 * alter the behaviour of the render process without needing to override or aspect the `getChildrenNodes`
-	 * method.
-	 */
-	childNodeRenderers: ChildNodeFunction[];
 
 	/**
 	 * Classes which are applied upon render.
@@ -333,14 +324,6 @@ export interface WidgetMixin {
 	 * the `getNodeAttributes` method.
 	 */
 	nodeAttributes: NodeAttributeFunction[];
-
-	/**
-	 * Attach a listener to the invalidated event, which is emitted when the `.invalidate()` method is called
-	 *
-	 * @param type The event type to listen for
-	 * @param listener The listener to call when the event is emitted
-	 */
-	on(type: 'invalidated', listener: EventedListener<Widget<WidgetState>, EventTargettedObject<Widget<WidgetState>>>): Handle;
 
 	/**
 	 * Render the widget, returing the virtual DOM node that represents this widget.

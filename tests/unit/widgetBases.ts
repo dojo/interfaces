@@ -14,8 +14,6 @@ registerSuite({
 		assertType.isType(widgetBasesTypes, 'VWrapper', 'VWrapper');
 		assertType.isType(widgetBasesTypes, 'WWrapper', 'WWrapper');
 		assertType.isType(widgetBasesTypes, 'DWrapper', 'DWrapper');
-		assertType.isType(widgetBasesTypes, 'CompositeMixin', 'CompositeMixin');
-		assertType.isType(widgetBasesTypes, 'CompositeWidget', 'CompositeWidget<S>');
 		assertType.isType(widgetBasesTypes, 'ContainerWidgetMixin', 'ContainerWidgetMixin<C>');
 		assertType.isType(widgetBasesTypes, 'ContainerWidget', 'ContainerWidget<C, S>');
 		assertType.isType(widgetBasesTypes, 'ContainerWidgetOptions', 'ContainerWidgetOptions<C, S>');
