@@ -26,7 +26,7 @@ import { VNode, VNodeProperties } from './vdom';
  * TODO: Should this behave more like a reducer (like above)?
  */
 export interface ChildNodeFunction {
-	(this: Widget<WidgetState>): DWrapper[] | VNode[];
+	(this: Widget<WidgetState>): DNode[] | VNode[];
 }
 
 /**
@@ -222,11 +222,11 @@ export interface SubWidgetManager<W extends Renderable> {
 	readonly size: number;
 }
 
-export interface VWrapper {
+export interface HNode {
 	/**
 	 * Specified children
 	 */
-	children: (VNode | DWrapper)[];
+	children: (VNode | DNode)[];
 
 	/**
 	 * render function that wraps returns VNode
@@ -234,7 +234,7 @@ export interface VWrapper {
 	render(): VNode;
 }
 
-export interface WWrapper {
+export interface WNode {
 	/**
 	 * Factory to create a widget
 	 */
@@ -246,7 +246,7 @@ export interface WWrapper {
 	options: WidgetOptions<WidgetState>;
 }
 
-export type DWrapper = VWrapper | WWrapper;
+export type DNode = HNode | WNode;
 
 export type Widget<S extends WidgetState> = Stateful<S> & WidgetMixin & WidgetOverloads;
 
@@ -268,16 +268,6 @@ export interface WidgetMixin {
 	 * method.
 	 */
 	childNodeRenderers: ChildNodeFunction[];
-
-	/**
-	 * Accepts a DWrapper object and returns the approproate VNode
-	 */
-	getVNode(child: DWrapper): VNode;
-
-	/**
-	 * Prune empty children and manage them accordingly
-	 */
-	pruneChildren(): void;
 
 	/**
 	 * Classes which are applied upon render.
