@@ -283,7 +283,7 @@ export interface WidgetMixin {
 	 * Mixins should not override or aspect this method, but instead provide a function as part of the
 	 * `childNodeRenders` property, which will automatically get called by this method upon render.
 	 */
-	getChildrenNodes(): (VNode | string)[];
+	getChildrenNodes(): (VNode | DNode)[];
 
 	/**
 	 * Generate the node attributes when rendering the widget.
