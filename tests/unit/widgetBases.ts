@@ -11,9 +11,9 @@ registerSuite({
 		assertType.isType(widgetBasesTypes, 'ChildNodeFunction', 'ChildNodeFunction');
 		assertType.isType(widgetBasesTypes, 'NodeAttributeFunction', 'NodeAttributeFunction');
 		assertType.isType(widgetBasesTypes, 'ChildrenChangeEvent', 'ChildrenChangeEvent<T>');
-		assertType.isType(widgetBasesTypes, 'VWrapper', 'VWrapper');
-		assertType.isType(widgetBasesTypes, 'WWrapper', 'WWrapper');
-		assertType.isType(widgetBasesTypes, 'DWrapper', 'DWrapper');
+		assertType.isType(widgetBasesTypes, 'HNode', 'HNode');
+		assertType.isType(widgetBasesTypes, 'WNode', 'WNode');
+		assertType.isType(widgetBasesTypes, 'DNode', 'DNode');
 		assertType.isType(widgetBasesTypes, 'ContainerWidgetMixin', 'ContainerWidgetMixin<C>');
 		assertType.isType(widgetBasesTypes, 'ContainerWidget', 'ContainerWidget<C, S>');
 		assertType.isType(widgetBasesTypes, 'ContainerWidgetOptions', 'ContainerWidgetOptions<C, S>');
