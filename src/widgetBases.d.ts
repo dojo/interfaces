@@ -26,7 +26,7 @@ import { VNode, VNodeProperties } from './vdom';
  * TODO: Should this behave more like a reducer (like above)?
  */
 export interface ChildNodeFunction {
-	(this: Widget<WidgetState>, childrenNodes: (VNode | string)[]): (VNode | string)[];
+	(this: Widget<WidgetState>): DNode[] | VNode[];
 }
 
 /**
@@ -55,55 +55,6 @@ export interface ChildrenChangeEvent<T> {
 	 * The type of the event
 	 */
 	type: 'children:changed';
-}
-
-export interface CompositeManagerFunction<W extends Renderable, S extends WidgetState> {
-	/**
-	 * A function which allows the management of the subwidgets of a composite widget
-	 *
-	 * @param instance A reference to the composite widget instance
-	 * @param type The lifecycle stage of the composite widget, which the manager can modify
-	 *             its behaviour to reflect this stage
-	 */
-	(this: CompositeWidget<W, S>, type: 'initialized' | 'changed' | 'completed'): void;
-}
-
-export interface CompositeMixin<W extends Renderable, S extends WidgetState> {
-	/**
-	 * Signal to the composite widget that it needs to ensure that it is an internally consistent state.
-	 *
-	 * This method is usually called during a state change of the composite widget and is the signal that
-	 * the composite widget should update the state of its subwidgets.
-	 */
-	manage(): void;
-
-	/**
-	 * An array of functions which allow mixins to provide logic that should be run as part of the manage
-	 * cycle of the composite widget
-	 */
-	managers: CompositeManagerFunction<W, S>[];
-
-	/**
-	 * A sub interface which allows management of the subwidgets of this composite widget
-	 */
-	readonly widgets: SubWidgetManager<W>;
-}
-
-/**
- * The *final* type for the CompositeWidget
- */
-export type CompositeWidget<W extends Renderable, S extends WidgetState> = Widget<S> & CompositeMixin<W, S>;
-
-export interface CompositeWidgetOptions<W extends Renderable, S extends WidgetState> extends WidgetOptions<S> {
-	/**
-	 * Any widget manager functions that should be added to this instance
-	 */
-	managers?: CompositeManagerFunction<W, S> | CompositeManagerFunction<W, S>[];
-
-	/**
-	 * A map of widgets that should be created as subwidgets during the instantiation of this instance
-	 */
-	widgets?: CreateWidgetMap<W, WidgetOptions<WidgetState>>;
 }
 
 export interface ContainerWidgetMixin<C extends Renderable> {
@@ -271,7 +222,43 @@ export interface SubWidgetManager<W extends Renderable> {
 	readonly size: number;
 }
 
-export type Widget<S extends WidgetState> = Stateful<S> & WidgetMixin;
+export interface HNode {
+	/**
+	 * Specified children
+	 */
+	children: (VNode | DNode)[];
+
+	/**
+	 * render function that wraps returns VNode
+	 */
+	render(): VNode;
+}
+
+export interface WNode {
+	/**
+	 * Factory to create a widget
+	 */
+	factory: Factory<Widget<WidgetState>, WidgetOptions<WidgetState>>;
+
+	/**
+	 * Options used to create factory a widget
+	 */
+	options: WidgetOptions<WidgetState>;
+}
+
+export type DNode = HNode | WNode;
+
+export type Widget<S extends WidgetState> = Stateful<S> & WidgetMixin & WidgetOverloads;
+
+export interface WidgetOverloads {
+	/**
+	 * Attach a listener to the invalidated event, which is emitted when the `.invalidate()` method is called
+	 *
+	 * @param type The event type to listen for
+	 * @param listener The listener to call when the event is emitted
+	 */
+	on(type: 'invalidated', listener: EventedListener<Widget<WidgetState>, EventTargettedObject<Widget<WidgetState>>>): Handle;
+}
 
 export interface WidgetMixin {
 	/**
@@ -296,7 +283,7 @@ export interface WidgetMixin {
 	 * Mixins should not override or aspect this method, but instead provide a function as part of the
 	 * `childNodeRenders` property, which will automatically get called by this method upon render.
 	 */
-	getChildrenNodes(): (VNode | string)[];
+	getChildrenNodes(): (VNode | DNode)[];
 
 	/**
 	 * Generate the node attributes when rendering the widget.
@@ -327,14 +314,6 @@ export interface WidgetMixin {
 	 * the `getNodeAttributes` method.
 	 */
 	nodeAttributes: NodeAttributeFunction[];
-
-	/**
-	 * Attach a listener to the invalidated event, which is emitted when the `.invalidate()` method is called
-	 *
-	 * @param type The event type to listen for
-	 * @param listener The listener to call when the event is emitted
-	 */
-	on(type: 'invalidated', listener: EventedListener<Widget<WidgetState>, EventTargettedObject<Widget<WidgetState>>>): Handle;
 
 	/**
 	 * Render the widget, returing the virtual DOM node that represents this widget.
