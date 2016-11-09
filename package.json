@@ -31,6 +31,7 @@
     "dojo-compose": ">=2.0.0-beta",
     "dojo-core": ">=2.0.0-alpha",
     "dojo-has": ">=2.0.0-alpha",
+    "dojo-interfaces": ">=2.0.0-alpha",
     "dojo-loader": ">=2.0.0-beta.7",
     "dojo-shim": ">=2.0.0-beta",
     "grunt": "~1.0.1",
