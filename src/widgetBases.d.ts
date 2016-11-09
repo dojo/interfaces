@@ -226,7 +226,7 @@ export interface HNode {
 	/**
 	 * Specified children
 	 */
-	children: (VNode | DNode)[];
+	children: (VNode | DNode | null)[];
 
 	/**
 	 * render function that wraps returns VNode
