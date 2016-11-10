@@ -15,6 +15,7 @@ registerSuite({
 		assertType.isType(widgetBasesTypes, 'WNode', 'WNode');
 		assertType.isType(widgetBasesTypes, 'DNode', 'DNode');
 		assertType.isType(widgetBasesTypes, 'ContainerWidgetMixin', 'ContainerWidgetMixin<C>');
+		assertType.isType(widgetBasesTypes, 'ContainerWidgetOverrides', 'ContainerWidgetOverrides<C>');
 		assertType.isType(widgetBasesTypes, 'ContainerWidget', 'ContainerWidget<C, S>');
 		assertType.isType(widgetBasesTypes, 'ContainerWidgetOptions', 'ContainerWidgetOptions<C, S>');
 		assertType.isType(widgetBasesTypes, 'ContainerWidgetState', 'ContainerWidgetState');
