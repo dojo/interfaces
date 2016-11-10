@@ -105,7 +105,7 @@ export interface ContainerWidgetMixin<C extends Renderable> {
 	sort?(childA: C, childB: C): 0 | 1 | -1;
 }
 
-export interface ContainerWidgetOverrides<C extends Renderable> {
+export interface ContainerWidgetOverloads<C extends Renderable> {
 	/**
 	 * Add a listener to the `children:changed` event which is fired when there is a change in the children of the widget
 	 *
@@ -121,7 +121,7 @@ export interface ContainerWidgetOverrides<C extends Renderable> {
 /**
  * The *final* type for ContainerWidget
  */
-export type ContainerWidget<C extends Renderable, S extends ContainerWidgetState> = Widget<S> & ContainerWidgetMixin<C> & ContainerWidgetOverrides<C>;
+export type ContainerWidget<C extends Renderable, S extends ContainerWidgetState> = Widget<S> & ContainerWidgetMixin<C> & ContainerWidgetOverloads<C>;
 
 export interface ContainerWidgetOptions<C extends Renderable, S extends ContainerWidgetState> extends WidgetOptions<S> {
 	/**
