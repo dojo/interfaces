@@ -10,6 +10,8 @@ registerSuite({
 		const abilitiesTypes = types[file];
 		assertType.isType(abilitiesTypes, 'Actionable', 'Actionable<T, E>');
 		assertType.isType(abilitiesTypes, 'ActionableOptions', 'ActionableOptions<T, E>');
+		assertType.isType(abilitiesTypes, 'CreatableRegistry', 'CreatableRegistry<T>');
+		assertType.isType(abilitiesTypes, 'IdentifiableRegistry', 'IdentifiableRegistry<T>');
 		assertType.isType(abilitiesTypes, 'Invalidatable', 'Invalidatable');
 		assertType.isType(abilitiesTypes, 'Renderable', 'Renderable');
 		assertType.isType(abilitiesTypes, 'RenderableParent', 'RenderableParent');
