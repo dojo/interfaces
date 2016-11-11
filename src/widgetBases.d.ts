@@ -77,17 +77,6 @@ export interface ContainerWidgetMixin<C extends Renderable> {
 	createChildren<O extends WidgetOptions<WidgetState>>(children: CreateWidgetList<C, O> | CreateWidgetMap<C, O>): Promise<CreateWidgetResults<C>>;
 
 	/**
-	 * Add a listener to the `children:changed` event which is fired when there is a change in the children of the widget
-	 *
-	 * @param type The event type to listen for
-	 * @param listener The event listener which will be called when the event is emitted
-	 */
-	on(type: 'children:changed', listener: EventedListener<
-		ContainerWidget<C, ContainerWidgetState>,
-		ChildrenChangeEvent<ContainerWidget<C, ContainerWidgetState>>
-	>): Handle;
-
-	/**
 	 * Set a child to the end of the children associated with this widget, using the `child.id` as the label for the
 	 * child
 	 *
@@ -116,10 +105,23 @@ export interface ContainerWidgetMixin<C extends Renderable> {
 	sort?(childA: C, childB: C): 0 | 1 | -1;
 }
 
+export interface ContainerWidgetOverloads<C extends Renderable> {
+	/**
+	 * Add a listener to the `children:changed` event which is fired when there is a change in the children of the widget
+	 *
+	 * @param type The event type to listen for
+	 * @param listener The event listener which will be called when the event is emitted
+	 */
+	on(type: 'children:changed', listener: EventedListener<
+		ContainerWidget<C, ContainerWidgetState>,
+		ChildrenChangeEvent<ContainerWidget<C, ContainerWidgetState>>
+	>): Handle;
+}
+
 /**
  * The *final* type for ContainerWidget
  */
-export type ContainerWidget<C extends Renderable, S extends ContainerWidgetState> = Widget<S> & ContainerWidgetMixin<C>;
+export type ContainerWidget<C extends Renderable, S extends ContainerWidgetState> = Widget<S> & ContainerWidgetMixin<C> & ContainerWidgetOverloads<C>;
 
 export interface ContainerWidgetOptions<C extends Renderable, S extends ContainerWidgetState> extends WidgetOptions<S> {
 	/**
