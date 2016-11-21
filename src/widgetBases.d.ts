@@ -248,7 +248,7 @@ export interface WNode {
 	options: WidgetOptions<WidgetState>;
 }
 
-export type DNode = HNode | WNode;
+export type DNode = HNode | WNode | string;
 
 export type Widget<S extends WidgetState> = Stateful<S> & WidgetMixin & WidgetOverloads;
 
