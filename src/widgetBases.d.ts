@@ -14,7 +14,7 @@
 
 import Promise from 'dojo-shim/Promise';
 import Map from 'dojo-shim/Map';
-import { Renderable, RenderableParent } from './abilities';
+import { StoreObservablePatchable, Renderable, RenderableParent } from './abilities';
 import { EventedListener, State, Stateful, StatefulOptions } from './bases';
 import { EventTargettedObject, Factory, Handle, StylesMap } from './core';
 import { VNode, VNodeProperties } from './vdom';
@@ -26,7 +26,7 @@ import { VNode, VNodeProperties } from './vdom';
  * TODO: Should this behave more like a reducer (like above)?
  */
 export interface ChildNodeFunction {
-	(this: Widget<WidgetState>): DNode[] | VNode[];
+	(this: Widget<WidgetState>, stateFrom?: StoreObservablePatchable<WidgetState>): DNode[] | VNode[];
 }
 
 /**
