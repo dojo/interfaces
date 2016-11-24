@@ -26,7 +26,7 @@ import { VNode, VNodeProperties } from './vdom';
  * TODO: Should this behave more like a reducer (like above)?
  */
 export interface ChildNodeFunction {
-	(this: Widget<WidgetState>, stateFrom?: StoreObservablePatchable<WidgetState>): DNode[] | VNode[];
+	(this: Widget<WidgetState>): DNode[] | VNode[];
 }
 
 /**
@@ -337,6 +337,11 @@ export interface WidgetMixin {
 	 * this property with a getter.
 	 */
 	tagName: string;
+
+	/**
+	 * A readonly reference to the stateFrom provided to the widget on instantiation.
+	 */
+	readonly stateFrom?: StoreObservablePatchable<WidgetState>;
 }
 
 export interface WidgetOptions<S extends WidgetState> extends StatefulOptions<S> {
