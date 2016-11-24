@@ -14,7 +14,7 @@
 
 import Promise from 'dojo-shim/Promise';
 import Map from 'dojo-shim/Map';
-import { Renderable, RenderableParent } from './abilities';
+import { StoreObservablePatchable, Renderable, RenderableParent } from './abilities';
 import { EventedListener, State, Stateful, StatefulOptions } from './bases';
 import { EventTargettedObject, Factory, Handle, StylesMap } from './core';
 import { VNode, VNodeProperties } from './vdom';
@@ -337,6 +337,11 @@ export interface WidgetMixin {
 	 * this property with a getter.
 	 */
 	tagName: string;
+
+	/**
+	 * A readonly reference to the stateFrom provided to the widget on instantiation.
+	 */
+	readonly stateFrom?: StoreObservablePatchable<WidgetState>;
 }
 
 export interface WidgetOptions<S extends WidgetState> extends StatefulOptions<S> {
