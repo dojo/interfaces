@@ -8,7 +8,6 @@
  *
  * The main interfaces that are defined in this module are:
  *   - Widget
- *   - CompositeWidget
  *   - ContainerWidget
  */
 
@@ -20,10 +19,7 @@ import { EventTargettedObject, Factory, Handle, StylesMap } from './core';
 import { VNode, VNodeProperties } from './vdom';
 
 /**
- * A function that is called when collecting the children nodes on render, accepting the current list of
- * children nodes and returning a list of children ndoes that should be appended onto the current list.
- *
- * TODO: Should this behave more like a reducer (like above)?
+ * A function that is called when collecting the children nodes on render.
  */
 export interface ChildNodeFunction {
 	(this: Widget<WidgetState>): DNode[] | VNode[];
@@ -264,14 +260,6 @@ export interface WidgetOverloads {
 
 export interface WidgetMixin {
 	/**
-	 * An array of child node render functions which are executed on a render to generate the children
-	 * nodes.  These are intended to be "static" and bound to the class, making it easy for mixins to
-	 * alter the behaviour of the render process without needing to override or aspect the `getChildrenNodes`
-	 * method.
-	 */
-	childNodeRenderers: ChildNodeFunction[];
-
-	/**
 	 * Classes which are applied upon render.
 	 *
 	 * This property is intended for "static" classes.  Classes which are aligned to the instance should be
@@ -281,11 +269,8 @@ export interface WidgetMixin {
 
 	/**
 	 * Generate the children nodes when rendering the widget.
-	 *
-	 * Mixins should not override or aspect this method, but instead provide a function as part of the
-	 * `childNodeRenders` property, which will automatically get called by this method upon render.
 	 */
-	getChildrenNodes(): (VNode | DNode)[];
+	getChildrenNodes: ChildNodeFunction;
 
 	/**
 	 * Generate the node attributes when rendering the widget.
@@ -343,7 +328,7 @@ export interface WidgetOptions<S extends WidgetState> extends StatefulOptions<S>
 	/**
 	 * Any child node render functions that should be added to this instance
 	 */
-	childNodeRenderers?: ChildNodeFunction | ChildNodeFunction[];
+	getChildrenNodes?: ChildNodeFunction;
 
 	/**
 	 * Any classes that should be added to this instances
@@ -353,7 +338,7 @@ export interface WidgetOptions<S extends WidgetState> extends StatefulOptions<S>
 	/**
 	 * Any node attribute functions that should be added to this instance
 	 */
-	nodeAttributes?: NodeAttributeFunction| NodeAttributeFunction[];
+	nodeAttributes?: NodeAttributeFunction | NodeAttributeFunction[];
 
 	/**
 	 * A parent to assign to this widget at creation time
