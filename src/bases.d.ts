@@ -173,7 +173,7 @@ export interface StatefulMixin<S extends State>{
 	/**
 	 * A readonly reference to the stateFrom provided to the widget on instantiation.
 	 */
-	readonly stateFrom?: StoreObservablePatchable<S>;
+	readonly stateFrom: StoreObservablePatchable<S> | undefined;
 
 	/**
 	 * Set the state on the instance.
