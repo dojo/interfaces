@@ -22,7 +22,7 @@ import { VNode, VNodeProperties } from './vdom';
  * A function that is called to return top level node
  */
 export interface NodeFunction {
-	(this: Widget<WidgetState>): VNode;
+	(this: Widget<WidgetState>): DNode;
 }
 
 /**
