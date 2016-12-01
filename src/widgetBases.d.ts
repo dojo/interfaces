@@ -19,7 +19,7 @@ import { EventTargettedObject, Factory, Handle, StylesMap } from './core';
 import { VNode, VNodeProperties } from './vdom';
 
 /**
- * A function that is called when collecting the children nodes on render.
+ * A function that is called to return top level node
  */
 export interface NodeFunction {
 	(this: Widget<WidgetState>): VNode;
