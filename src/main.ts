@@ -5,7 +5,6 @@ import * as loader from './loader';
 import * as observables from './observables';
 import * as shim from './shim';
 import * as vdom from './vdom';
-import * as widgetBases from './widgetBases';
 
 export = {
 	abilities,
@@ -14,6 +13,5 @@ export = {
 	loader,
 	observables,
 	shim,
-	vdom,
-	widgetBases
+	vdom
 };
