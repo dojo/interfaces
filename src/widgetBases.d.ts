@@ -21,6 +21,13 @@ import { VNode, VNodeProperties } from './vdom';
 /**
  * A function that is called when collecting the children nodes on render.
  */
+export interface NodeFunction {
+	(this: Widget<WidgetState>): VNode | string[];
+}
+
+/**
+ * A function that is called when collecting the children nodes on render.
+ */
 export interface ChildNodeFunction {
 	(this: Widget<WidgetState>): DNode[] | VNode[];
 }
@@ -266,6 +273,11 @@ export interface WidgetMixin {
 	 * stored in the instances state object.
 	 */
 	readonly classes: string[];
+
+	/**
+	 * Get the top level node and children when rendering the widget.
+	 */
+	getNode: NodeFunction;
 
 	/**
 	 * Generate the children nodes when rendering the widget.
