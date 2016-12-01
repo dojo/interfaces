@@ -1,7 +1,7 @@
 module.exports = function (grunt) {
 	const distTasks = [
 		'clean:typings',
-		'typings',
+		'typings:dist',
 		'tslint',
 		'clean:dist',
 		'ts:dist',
