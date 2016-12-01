@@ -13,7 +13,7 @@
 
 import Promise from 'dojo-shim/Promise';
 import Map from 'dojo-shim/Map';
-import { Renderable, RenderableParent } from './abilities';
+import { CreatableRegistry, Renderable, RenderableParent } from './abilities';
 import { EventedListener, State, Stateful, StatefulOptions } from './bases';
 import { EventTargettedObject, Factory, Handle, StylesMap } from './core';
 import { VNode, VNodeProperties } from './vdom';
@@ -124,6 +124,12 @@ export interface ContainerWidgetOptions<C extends Renderable, S extends Containe
 	 * A list of children to be created and added to the container at creation time
 	 */
 	createChildren?: CreateWidgetList<C, WidgetOptions<WidgetState>> | CreateWidgetMap<C, WidgetOptions<WidgetState>>;
+
+	/**
+	 * A registry provider (like `dojo-app`) which offers a registry f type `widget` so that children of the container
+	 * can be identified and registered.
+	 */
+	registryProvider?: { get(type: 'widgets'): CreatableRegistry<Renderable>; };
 
 	/**
 	 * Provide a sort function for this instance which will sort the children renders at render time
