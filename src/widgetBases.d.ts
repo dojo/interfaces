@@ -22,7 +22,7 @@ import { VNode, VNodeProperties } from './vdom';
  * A function that is called when collecting the children nodes on render.
  */
 export interface NodeFunction {
-	(this: Widget<WidgetState>): VNode | string[];
+	(this: Widget<WidgetState>): VNode;
 }
 
 /**
