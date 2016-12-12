@@ -39,7 +39,7 @@ export interface TypesForFiles {
 export function getTypeForFiles(...fileNames: string[]): TypesForFiles {
 	const compilerOptions: CompilerOptions = {
 		module: ModuleKind.CommonJS,
-		target: ScriptTarget.ES6
+		target: ScriptTarget.ES2015
 	};
 	const host = createCompilerHost(compilerOptions);
 	const program = createProgram(fileNames, compilerOptions, host);
