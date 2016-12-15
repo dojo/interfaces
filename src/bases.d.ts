@@ -106,11 +106,7 @@ export interface EventedListenersMap<T> {
  */
 export type EventedListenerOrArray<T, E extends EventTargettedObject<T>> = EventedListener<T, E> | EventedListener<T, E>[];
 
-export interface State {
-	[key: string]: any;
-}
-
-export interface StateChangeEvent<S, T extends Stateful<S>> extends EventTypedObject<'state:changed'> {
+export interface StateChangeEvent<S extends Object, T extends Stateful<S>> extends EventTypedObject<'state:changed'> {
 	/**
 	 * The state of the target
 	 */
@@ -122,7 +118,7 @@ export interface StateChangeEvent<S, T extends Stateful<S>> extends EventTypedOb
 	target: T;
 }
 
-export interface StateInitalizedEvent<S, T extends Stateful<S>> extends EventTypedObject<'state:initialized'> {
+export interface StateInitalizedEvent<S extends Object, T extends Stateful<S>> extends EventTypedObject<'state:initialized'> {
 	/**
 	 * The state of the target
 	 */
@@ -134,7 +130,7 @@ export interface StateInitalizedEvent<S, T extends Stateful<S>> extends EventTyp
 	target: T;
 }
 
-export type Stateful<S extends State> = StatefulMixin<S> & Evented & {
+export type Stateful<S extends Object> = StatefulMixin<S> & Evented & {
 	/**
 	 * Add a listener for a `state:changed` event, which occurs whenever the state changes on the instance.
 	 *
@@ -164,26 +160,16 @@ export type Stateful<S extends State> = StatefulMixin<S> & Evented & {
 	on(type: 'state:initialized', listener: EventedListener<Stateful<S>, StateInitalizedEvent<S, Stateful<S>>>): Handle;
 }
 
-export interface StatefulMixin<S extends State>{
+export interface StatefulMixin<S extends Object> {
 	/**
-	 * A read only view of the state
+	 * A state of the instannce
 	 */
-	readonly state: S;
+	state: S | undefined;
 
 	/**
 	 * A readonly reference to the stateFrom provided to the widget on instantiation.
 	 */
 	readonly stateFrom: StoreObservablePatchable<S> | undefined;
-
-	/**
-	 * Set the state on the instance.
-	 *
-	 * Set state can take a partial value, therefore if a key is ommitted from the value, it will not be changed.
-	 * To *clear* a value, set a key to `undefined`
-	 *
-	 * @param value The state (potentially partial) to be set
-	 */
-	setState(value: S): void;
 
 	/**
 	 * Observe (and update) the state from an Observable
@@ -194,8 +180,18 @@ export interface StatefulMixin<S extends State>{
 	observeState(id: string, observable: StoreObservablePatchable<S>): Handle;
 }
 
-export interface StatefulOptions<S extends State> extends EventedOptions {
+/**
+ * Options for a stateful object
+ */
+export interface StatefulOptions<S extends Object> extends EventedOptions {
+
+	/**
+	 * id of the stateful object when using `StoreObservablePatchable`.
+	 */
 	id?: string;
-	state?: S;
+
+	/**
+	 * The `StoreObservablePatchable` used to back state.
+	 */
 	stateFrom?: StoreObservablePatchable<S>;
 }

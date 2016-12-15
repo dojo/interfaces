@@ -16,7 +16,7 @@ function contains(typeBundle: TypeWriterResult[], name: string, description?: st
 }
 
 function isType(typeBundle: TypeWriterResult[], name: string, type: string, description?: string, ssi: any = isType): void {
-	const typeResult = typeBundle.find((result) => result.sourceText === name);
+	const typeResult = typeBundle.filter((result) => result.sourceText === name)[0];
 	assert(
 		typeResult && typeResult.type === type,
 		`Unexpected type. Expected: "${type}" Actual: "${typeResult && typeResult.type}"${description ? `. ${description}` : ''}`,
