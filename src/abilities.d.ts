@@ -7,9 +7,9 @@
 
 import Promise from 'dojo-shim/Promise';
 import Map from 'dojo-shim/Map';
+import Observable from 'dojo-shim/Observable';
 import { Destroyable, EventedListener } from './bases';
 import { EventTargettedObject, Handle } from './core';
-import { Observable } from './observables';
 import { VNode } from './vdom';
 
 /**
