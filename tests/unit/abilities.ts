@@ -13,7 +13,8 @@ registerSuite({
 		assertType.isType(abilitiesTypes, 'Invalidatable', 'Invalidatable');
 		assertType.isType(abilitiesTypes, 'Renderable', 'Renderable');
 		assertType.isType(abilitiesTypes, 'RenderableParent', 'RenderableParent');
-		assertType.isType(abilitiesTypes, 'StoreObservable', 'StoreObservable<T>');
-		assertType.isType(abilitiesTypes, 'StorePatchable', 'StorePatchable<T>');
+		assertType.isType(abilitiesTypes, 'ObservableStore', 'ObservableStore<T>');
+		assertType.isType(abilitiesTypes, 'PatchableStore', 'PatchableStore<T>');
+		assertType.isType(abilitiesTypes, 'ObservablePatchableStore', 'ObservablePatchableStore<T>');
 	}
 });
