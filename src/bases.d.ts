@@ -6,7 +6,7 @@
  */
 
 import Promise from 'dojo-shim/Promise';
-import { Actionable, StoreObservablePatchable } from './abilities';
+import { Actionable, ObservablePatchableStore } from './abilities';
 import { EventCancelableObject, EventErrorObject, EventObject, EventTargettedObject, EventTypedObject, Handle } from './core';
 
 export interface Destroyable {
@@ -169,7 +169,7 @@ export interface StatefulMixin<S> {
 	/**
 	 * A readonly reference to the stateFrom provided to the widget on instantiation.
 	 */
-	readonly stateFrom: StoreObservablePatchable<S> | undefined;
+	readonly stateFrom: ObservablePatchableStore<S> | undefined;
 
 	/**
 	 * Set the state on the instance.
@@ -187,7 +187,7 @@ export interface StatefulMixin<S> {
 	 * @param observable An object which provides a `observe` and `patch` methods which allow `Stateful` to be able to
 	 *                   manage its state.
 	 */
-	observeState(id: string, observable: StoreObservablePatchable<S>): Handle;
+	observeState(id: string, observable: ObservablePatchableStore<S>): Handle;
 }
 
 /**
@@ -203,5 +203,5 @@ export interface StatefulOptions<S> extends EventedOptions {
 	/**
 	 * The `StoreObservablePatchable` used to back state.
 	 */
-	stateFrom?: StoreObservablePatchable<S>;
+	stateFrom?: ObservablePatchableStore<S>;
 }

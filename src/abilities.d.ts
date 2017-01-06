@@ -84,17 +84,23 @@ export interface RenderableParent extends Renderable {
 	readonly children: Map<string, Renderable>;
 }
 
-export interface StoreObservable<T> {
+export interface ObservableStore<T> {
 	/**
 	 * A method that allows the return of an `Observable` interface for a particular `id`
 	 * @param id The ID to observe
 	 */
 	observe(id: string): Observable<T>;
+
+	/**
+	 * A method to retrieve item(s) by ids
+	 * @param ids The IDs of the item(s)
+	 */
+	get(ids: string | string[]): Promise<T | undefined | T[]>;
 }
 
-export type StoreObservablePatchable<T> = StoreObservable<T> & StorePatchable<T>;
+export type ObservablePatchableStore<T> = ObservableStore<T> & PatchableStore<T>;
 
-export interface StorePatchable<T> {
+export interface PatchableStore<T> {
 	/**
 	 * A method that allows an partial object to be passed to patch the object
 	 * and receive the full object back as a resolution to a Promise
