@@ -6,8 +6,8 @@
  */
 
 import Promise from 'dojo-shim/Promise';
-import { Actionable, ObservablePatchableStore } from './abilities';
-import { EventCancelableObject, EventErrorObject, EventObject, EventTargettedObject, EventTypedObject, Handle } from './core';
+import { Actionable } from './abilities';
+import { EventErrorObject, EventObject, EventTargettedObject, EventTypedObject, Handle } from './core';
 
 export interface Destroyable {
 	/**
@@ -118,58 +118,16 @@ export interface StateChangeEvent<S, T extends Stateful<S>> extends EventTypedOb
 	target: T;
 }
 
-export interface StateInitalizedEvent<S, T extends Stateful<S>> extends EventTypedObject<'state:initialized'> {
-	/**
-	 * The state of the target
-	 */
-	state: S;
+export interface State { }
 
-	/**
-	 * A Stateful instance
-	 */
-	target: T;
-}
-
-export type Stateful<S> = StatefulMixin<S> & Evented & {
-	/**
-	 * Add a listener for a `state:changed` event, which occurs whenever the state changes on the instance.
-	 *
-	 * @param type The event type to listen for
-	 * @param listener The listener that will be called when the event occurs
-	 */
-	on(type: 'state:changed', listener: EventedListener<Stateful<S>, StateChangeEvent<S, Stateful<S>>>): Handle;
-
-	/**
-	 * Add a listener for a `state:completed` event, which occurs when state is observed
-	 * and is completed.  If the event is not cancelled, the instance will continue and
-	 * call `target.destroy()`.
-	 *
-	 * @param type The event type to listen for
-	 * @param listener The listener that will be called when the event occurs
-	 */
-	on(type: 'state:completed', listener: EventedListener<Stateful<S>, EventCancelableObject<'state:completed', Stateful<S>>>): Handle;
-
-	/**
-	 * Add a listener for a `state:initialized` event, which occurs when state Statful has finished fully setting up
-	 * `instance.state` during creation.  This will always occur out of turn (asnyc) from the creation cycle, to ensure
-	 * that listeners can be attached during initialization.
-	 *
-	 * @param type The event type to listen for
-	 * @param listener The listener that will be called when the event occurs
-	 */
-	on(type: 'state:initialized', listener: EventedListener<Stateful<S>, StateInitalizedEvent<S, Stateful<S>>>): Handle;
-}
-
-export interface StatefulMixin<S> {
+/**
+ * The stateful mixin interface
+ */
+export interface StatefulMixin<S extends State> extends Evented {
 	/**
 	 * A state of the instannce
 	 */
-	readonly state: Partial<S>;
-
-	/**
-	 * A readonly reference to the stateFrom provided to the widget on instantiation.
-	 */
-	readonly stateFrom: ObservablePatchableStore<S> | undefined;
+	readonly state: S;
 
 	/**
 	 * Set the state on the instance.
@@ -180,28 +138,22 @@ export interface StatefulMixin<S> {
 	 * @param value The state (potentially partial) to be set
 	 */
 	setState(state: Partial<S>): void;
+}
 
+/**
+ * Stateful type
+ */
+export type Stateful<S extends State> = StatefulMixin<S> & {
 	/**
-	 * Observe (and update) the state from an Observable
-	 * @param id The ID to be observed on the Observable
-	 * @param observable An object which provides a `observe` and `patch` methods which allow `Stateful` to be able to
-	 *                   manage its state.
+	 * Add a listener for a `state:changed` event, which occurs whenever the state changes on the instance.
+	 *
+	 * @param type The event type to listen for
+	 * @param listener The listener that will be called when the event occurs
 	 */
-	observeState(id: string, observable: ObservablePatchableStore<S>): Handle;
+	on(type: 'state:changed', listener: EventedListener<Stateful<S>, StateChangeEvent<S, Stateful<S>>>): Handle;
 }
 
 /**
  * Options for a stateful object
  */
-export interface StatefulOptions<S> extends EventedOptions {
-
-	/**
-	 * id of the stateful object when using `StoreObservablePatchable`.
-	 */
-	id?: string;
-
-	/**
-	 * The `StoreObservablePatchable` used to back state.
-	 */
-	stateFrom?: ObservablePatchableStore<S>;
-}
+export interface StatefulOptions<S extends State> extends EventedOptions {}
