@@ -1,10 +1,10 @@
-# dojo-interfaces
+# @dojo/interfaces
 
 [![Build Status](https://travis-ci.org/dojo/interfaces.svg?branch=master)](https://travis-ci.org/dojo/interfaces)
 
 <!--
 [![codecov](https://codecov.io/gh/dojo/interfaces/branch/master/graph/badge.svg)](https://codecov.io/gh/dojo/interfaces)
-[![npm version](https://badge.fury.io/js/dojo-interfaces.svg)](http://badge.fury.io/js/dojo-interfaces)
+[![npm version](https://badge.fury.io/js/@dojo/interfaces.svg)](http://badge.fury.io/js/@dojo/interfaces)
 -->
 
 This package contain TypeScript interfaces and types that are widely used across Dojo 2 packages.  It is designed to make it
