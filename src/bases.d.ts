@@ -5,7 +5,7 @@
  * and therefore are extracted out into this package.
  */
 
-import Promise from 'dojo-shim/Promise';
+import Promise from '@dojo/shim/Promise';
 import { Actionable } from './abilities';
 import { EventErrorObject, EventObject, EventTargettedObject, EventTypedObject, Handle } from './core';
 
