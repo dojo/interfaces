@@ -118,7 +118,9 @@ export interface StateChangeEvent<S, T extends Stateful<S>> extends EventTypedOb
 	target: T;
 }
 
-export interface State { }
+export interface State {
+	[index: string]: any;
+}
 
 /**
  * The stateful mixin interface
