@@ -1,5 +1,5 @@
 /**
- * The interfaces to the `dojo-loader` AMD loader
+ * The interfaces to the `@dojo/loader` AMD loader
  */
 
 export interface Config {
@@ -168,7 +168,7 @@ export interface RequireCallback {
 
 export interface RootRequire extends Require {
 	/**
-	 * The minimalist `has` API integrated with the `dojo-loader`
+	 * The minimalist `has` API integrated with the `@dojo/loader`
 	 */
 	has: Has;
 

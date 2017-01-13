@@ -1,4 +1,4 @@
-import { includes } from 'dojo-shim/array';
+import { includes } from '@dojo/shim/array';
 import TypeWriter, { TypeWriterResult } from './TypeWriter';
 import {
 	createCompilerHost,

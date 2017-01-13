@@ -5,9 +5,9 @@
  * It is very unlikely that these interfaces would be actually implemented as they stand
  */
 
-import Promise from 'dojo-shim/Promise';
-import Map from 'dojo-shim/Map';
-import Observable from 'dojo-shim/Observable';
+import Promise from '@dojo/shim/Promise';
+import Map from '@dojo/shim/Map';
+import Observable from '@dojo/shim/Observable';
 import { Destroyable, EventedListener } from './bases';
 import { EventTargettedObject, Handle } from './core';
 import { VNode } from './vdom';
