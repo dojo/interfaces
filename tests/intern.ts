@@ -54,7 +54,7 @@ export const loaderOptions = {
 		{ name: 'src', location: '_build/src' },
 		{ name: 'tests', location: '_build/tests' },
 		{ name: 'dojo', location: 'node_modules/intern/node_modules/dojo' },
-		{ name: '@dojo/shim', location: 'node_modules/@dojo/shim' }
+		{ name: '@dojo', location: 'node_modules/@dojo' }
 	]
 };
 
