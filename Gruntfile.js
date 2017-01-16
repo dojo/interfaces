@@ -4,7 +4,7 @@ module.exports = function (grunt) {
 		'typings:dist',
 		'tslint',
 		'clean:dist',
-		'ts:dist',
+		'grunt-ts:dist',
 		'fixSourceMaps',
 		'copy:staticDefinitionFiles'
 	];
