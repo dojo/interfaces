@@ -1,6 +1,7 @@
 # @dojo/interfaces
 
 [![Build Status](https://travis-ci.org/dojo/interfaces.svg?branch=master)](https://travis-ci.org/dojo/interfaces)
+[![npm version](https://badge.fury.io/js/%40dojo%2Finterfaces.svg)](https://badge.fury.io/js/%40dojo%2Finterfaces)
 
 <!--
 [![codecov](https://codecov.io/gh/dojo/interfaces/branch/master/graph/badge.svg)](https://codecov.io/gh/dojo/interfaces)
