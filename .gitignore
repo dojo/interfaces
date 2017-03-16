@@ -1,3 +1,4 @@
+/_apidoc
 /_build
 /bower_components
 /dist
@@ -7,4 +8,5 @@
 .baseDir.ts
 .tscache
 coverage-unmapped.json
+deploy_key
 npm-debug.log
