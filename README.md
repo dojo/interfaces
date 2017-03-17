@@ -13,6 +13,12 @@ easier to maintain these interfaces as well as build code that integrates well w
 requiring a hard dependency on those other packages.
 
 - [Usage](#usage)
+- [Features](#features)
+  - [bases](#bases)
+  - [core](#core)
+  - [loader](#loader)
+  - [shim](#shim)
+  - [loader](#loader)
 - [How do I contribute?](#how-do-I-contribute?)
   - [Installation](#installation)
   - [Testing](#testing)
@@ -24,6 +30,46 @@ To use `@dojo/interfaces` install the package:
 
 ```bash
 npm install @dojo/interfaces
+```
+
+## Features
+
+### bases
+
+`Evented` and `Destroyable` interfaces, which are used throughout many packages, specifically`@dojo/core` and `@dojo/widget-core`.
+
+`Evented` defines an interface for objects that emit events, while `Destroyable` defines an interface for objects that have `own` and `destroy` methods.
+
+### core
+
+Miscellaneous interfaces like `Handle` and event related interfaces (like `EventObject`, `EventTargettedObject`.)
+
+### loader
+
+Interfaces for working with `@dojo/loader`.  If the loader is included on the page, you can reference the loader with:
+
+```typescript
+import { DojoRequire } from '@dojo/interfaces/loader';
+declare const require: DojoRequire;
+
+require(['some-module'], (someModule) => {
+});
+```
+
+### shim
+
+`Thenable` and `ArrayLike` interfaces. `Thenable` will allow you to use promise-like objects without pulling in `@dojo/shim`.
+
+### vdom
+
+A set of interfaces for working with widgets and the virtual DOM. To work with a `VNode`:
+
+```typescript
+import { VNode } from '@dojo/interfaces/vdom';
+
+let node: VNode;
+
+node = someFlag ? v('div') : v('p');
 ```
 
 ## How do I contribute?
