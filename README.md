@@ -42,7 +42,7 @@ npm install @dojo/interfaces
 
 ### core
 
-Miscellaneous interfaces like `Handle` and event related interfaces (like `EventObject`, `EventTargettedObject`.)
+Common, foundational interfaces used widely throughout most Dojo 2 packages. Includes `Handle` and event related interfaces `EventObject`, and `EventTargettedObject`.
 
 ### loader
 
