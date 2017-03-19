@@ -33,9 +33,8 @@
     "@dojo/shim": "2.0.0-beta.8",
     "@dojo/has": "2.0.0-alpha.7",
     "grunt": "~1.0.1",
-    "grunt-dojo2": ">=2.0.0-beta.22",
+    "grunt-dojo2": ">=2.0.0-beta.36",
     "intern": "^3.4.1",
-    "tslint": "^3.11.0",
     "typescript": "~2.1.4"
   }
 }
