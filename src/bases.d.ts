@@ -153,7 +153,7 @@ export type Stateful<S extends State> = StatefulMixin<S> & {
 	 * @param listener The listener that will be called when the event occurs
 	 */
 	on(type: 'state:changed', listener: EventedListener<Stateful<S>, StateChangeEvent<S, Stateful<S>>>): Handle;
-}
+};
 
 /**
  * Options for a stateful object
