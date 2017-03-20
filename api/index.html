@@ -72,6 +72,14 @@
 				requiring a hard dependency on those other packages.</p>
 				<ul>
 					<li><a href="#usage">Usage</a></li>
+					<li><a href="#features">Features</a><ul>
+							<li><a href="#bases">bases</a></li>
+							<li><a href="#core">core</a></li>
+							<li><a href="#loader">loader</a></li>
+							<li><a href="#shim">shim</a></li>
+							<li><a href="#loader">loader</a></li>
+						</ul>
+					</li>
 					<li><a href="#how-do-I-contribute?">How do I contribute?</a><ul>
 							<li><a href="#installation">Installation</a></li>
 							<li><a href="#testing">Testing</a></li>
@@ -82,6 +90,30 @@
 				<h2 id="usage">Usage</h2>
 				<p>To use <code>@dojo/interfaces</code> install the package:</p>
 				<pre><code class="lang-bash">npm install @dojo/interfaces
+</code></pre>
+				<h2 id="features">Features</h2>
+				<h3 id="bases">bases</h3>
+				<p><code>Evented</code> and <code>Destroyable</code> interfaces, which are used throughout many packages, specifically<code>@dojo/core</code> and <code>@dojo/widget-core</code>.</p>
+				<p><code>Evented</code> defines an interface for objects that emit events, while <code>Destroyable</code> defines an interface for objects that have <code>own</code> and <code>destroy</code> methods.</p>
+				<h3 id="core">core</h3>
+				<p>Common, foundational interfaces used widely throughout most Dojo 2 packages. Includes <code>Handle</code> and event related interfaces <code>EventObject</code>, and <code>EventTargettedObject</code>.</p>
+				<h3 id="loader">loader</h3>
+				<p>Interfaces for working with <code>@dojo/loader</code>.  If the loader is included on the page, you can reference the loader with:</p>
+				<pre><code class="lang-typescript"><span class="hljs-keyword">import</span> { DojoRequire } <span class="hljs-keyword">from</span> <span class="hljs-string">'@dojo/interfaces/loader'</span>;
+<span class="hljs-keyword">declare</span> <span class="hljs-keyword">const</span> <span class="hljs-built_in">require</span>: DojoRequire;
+
+<span class="hljs-built_in">require</span>([<span class="hljs-string">'some-module'</span>], <span class="hljs-function">(<span class="hljs-params">someModule</span>) =&gt;</span> {
+});
+</code></pre>
+				<h3 id="shim">shim</h3>
+				<p><code>Thenable</code> and <code>ArrayLike</code> interfaces. <code>Thenable</code> will allow you to use promise-like objects without pulling in <code>@dojo/shim</code>.</p>
+				<h3 id="vdom">vdom</h3>
+				<p>A set of interfaces for working with widgets and the virtual DOM. To work with a <code>VNode</code>:</p>
+				<pre><code class="lang-typescript"><span class="hljs-keyword">import</span> { VNode } <span class="hljs-keyword">from</span> <span class="hljs-string">'@dojo/interfaces/vdom'</span>;
+
+<span class="hljs-keyword">let</span> node: VNode;
+
+node = someFlag ? v(<span class="hljs-string">'div'</span>) : v(<span class="hljs-string">'p'</span>);
 </code></pre>
 				<h2 id="how-do-i-contribute-">How do I contribute?</h2>
 				<p>We appreciate your interest!  Please see the <a href="https://github.com/dojo/meta#readme">Dojo 2 Meta Repository</a> for the
