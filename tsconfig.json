@@ -1,7 +1,13 @@
 {
-	"version": "2.0.0",
 	"compilerOptions": {
 		"declaration": false,
+		"lib": [
+			"dom",
+			"es5",
+			"es2015.iterable",
+			"es2015.symbol",
+			"es2015.symbol.wellknown"
+		],
 		"module": "umd",
 		"noImplicitAny": true,
 		"noImplicitThis": true,
@@ -10,10 +16,10 @@
 		"removeComments": false,
 		"sourceMap": true,
 		"target": "es5",
-		"moduleResolution": "node"
+		"moduleResolution": "node",
+		"types": [ "intern" ]
 	},
 	"include": [
-		"./typings/index.d.ts",
 		"./src/**/*.ts",
 		"./tests/**/*.ts"
 	]
