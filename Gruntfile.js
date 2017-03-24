@@ -6,7 +6,7 @@ module.exports = function (grunt) {
 		'clean:dist',
 		'dojo-ts:dist',
 		'fixSourceMaps',
-		'copy:staticDefinitionFiles'
+		'copy:staticDefinitionFiles-dist'
 	];
 
 	require('grunt-dojo2').initConfig(grunt, {

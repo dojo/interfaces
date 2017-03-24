@@ -1,5 +1,6 @@
 import AssertionError = require('assertion-error');
 import { TypeWriterResult } from './TypeWriter';
+import { find } from '@dojo/shim/array';
 
 function assert(expr: any, message?: string, expected?: any, actual?: any, showDiff?: boolean, ssi?: any): void {
 	if (!expr) {
@@ -16,7 +17,7 @@ function contains(typeBundle: TypeWriterResult[], name: string, description?: st
 }
 
 function isType(typeBundle: TypeWriterResult[], name: string, type: string, description?: string, ssi: any = isType): void {
-	const typeResult = typeBundle.find((result) => result.sourceText === name);
+	const typeResult = find(typeBundle, (result) => result.sourceText === name);
 	assert(
 		typeResult && typeResult.type === type,
 		`Unexpected type. Expected: "${type}" Actual: "${typeResult && typeResult.type}"${description ? `. ${description}` : ''}`,
