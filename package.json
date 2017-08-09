@@ -34,6 +34,7 @@
     "@types/glob": "~5.0.30",
     "@types/grunt": "~0.4.0",
     "@types/node": "~6.0.49",
+    "@types/yargs": "^8.0.2",
     "assertion-error": "^1.0.2",
     "grunt": "~1.0.1",
     "grunt-dojo2": "latest",
