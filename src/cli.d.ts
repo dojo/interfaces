@@ -61,10 +61,10 @@ export interface EjectOutput {
 /**
  * Inbuilt commands specify their name and group - installed commands have these props parsed out of their package dir name
  */
-export interface Command {
+export interface Command<T = any> {
 	description: string;
 	register(options: OptionsHelper, helper: Helper): void;
-	run(helper: Helper, args?: Argv): Promise<any>;
+	run(helper: Helper, args?: T): Promise<any>;
 	eject?(helper: Helper): EjectOutput;
 	name?: string;
 	group?: string;
