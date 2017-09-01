@@ -25,9 +25,9 @@
     "test": "grunt test"
   },
   "devDependencies": {
-    "@dojo/has": "next",
-    "@dojo/loader": "next",
-    "@dojo/shim": "next",
+    "@dojo/has": "beta2",
+    "@dojo/loader": "beta2",
+    "@dojo/shim": "beta2",
     "@types/assertion-error": "~1.0.30",
     "@types/chai": "~3.4.0",
     "@types/es6-shim": "~0.31.0",
