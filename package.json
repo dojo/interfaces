@@ -1,6 +1,6 @@
 {
   "name": "@dojo/interfaces",
-  "version": "2.0.0-pre",
+  "version": "0.1.0",
   "description": "Common interfaces and types for Dojo 2",
   "private": true,
   "homepage": "https://dojo.io",
