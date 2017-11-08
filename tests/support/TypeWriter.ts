@@ -33,7 +33,7 @@ import {
 	ClassLikeDeclaration,
 	HeritageClause
 } from 'typescript';
-import * as assert from 'intern/chai!assert';
+const { assert } = intern.getPlugin('chai');
 
 function isClassLike(node: Node): node is ClassLikeDeclaration {
 	return node && (node.kind === SyntaxKind.ClassDeclaration || node.kind === SyntaxKind.ClassExpression);
