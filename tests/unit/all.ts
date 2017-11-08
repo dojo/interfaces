@@ -1,4 +1,3 @@
-import 'intern';
 import './abilities';
 import './bases';
 import './core';

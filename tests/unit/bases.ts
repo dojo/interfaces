@@ -1,9 +1,8 @@
-import * as registerSuite from 'intern!object';
+const { registerSuite  } = intern.getInterface('object');
 import { getTypeForFiles } from '../support/util';
 import assertType from '../support/assertType';
 
-registerSuite({
-	name: 'bases.d',
+registerSuite('bases.d', {
 	'validate types'() {
 		const file = 'src/bases.d.ts';
 		const types = getTypeForFiles(file);
