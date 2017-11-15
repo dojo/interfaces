@@ -1,6 +1,6 @@
 {
   "name": "@dojo/interfaces",
-  "version": "0.1.1-pre",
+  "version": "0.2.0-pre",
   "description": "Common interfaces and types for Dojo 2",
   "private": true,
   "homepage": "https://dojo.io",
@@ -24,21 +24,22 @@
   "scripts": {
     "test": "grunt test"
   },
+  "dependencies": {
+    "@types/yargs": "^8.0.2"
+  },
   "devDependencies": {
     "@dojo/has": "~0.1.0",
     "@dojo/loader": "~0.1.0",
     "@dojo/shim": "~0.1.0",
     "@types/assertion-error": "~1.0.30",
     "@types/chai": "~3.4.0",
-    "@types/es6-shim": "~0.31.0",
     "@types/glob": "~5.0.30",
     "@types/grunt": "~0.4.0",
     "@types/node": "~6.0.49",
-    "@types/yargs": "^8.0.2",
     "assertion-error": "^1.0.2",
     "grunt": "~1.0.1",
     "grunt-dojo2": "latest",
     "intern": "~4.1.0",
-    "typescript": "~2.4.1"
+    "typescript": "~2.6.1"
   }
 }
