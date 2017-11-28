@@ -30,7 +30,6 @@
   "devDependencies": {
     "@dojo/has": "~0.1.0",
     "@dojo/loader": "~0.1.0",
-    "@dojo/shim": "~0.1.0",
     "@types/assertion-error": "~1.0.30",
     "@types/chai": "~3.4.0",
     "@types/glob": "~5.0.30",
