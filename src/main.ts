@@ -1,7 +1,7 @@
 import * as cli from './cli';
 import * as loader from './loader';
 
-export = {
+export {
 	cli,
 	loader
 };
