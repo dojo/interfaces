@@ -1,6 +1,2 @@
-import './abilities';
-import './bases';
-import './core';
+import './cli';
 import './loader';
-import './shim';
-import './vdom';

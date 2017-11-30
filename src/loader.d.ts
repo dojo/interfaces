@@ -109,6 +109,11 @@ export interface ModuleMapReplacement extends ModuleMapItem {
 	[ findMid: string ]: string;
 }
 
+export interface NodeRequire {
+	(moduleId: string): any;
+	resolve(moduleId: string): string;
+}
+
 export interface Package {
 	/**
 	 * The path to the root of the package
@@ -141,6 +146,11 @@ export interface Require {
 	 * @param moduleId The module ID to resolve and return
 	 */
 	<ModuleType>(moduleId: string): ModuleType;
+
+	/**
+	 * If running in the node environment, a reference to the original NodeJS `require`
+	 */
+	nodeRequire?: NodeRequire;
 
 	/**
 	 * Take a relative MID and return an absolute MID
@@ -193,11 +203,6 @@ export interface RootRequire extends Require {
 	 * @param name The name of the internal label
 	 */
 	inspect?(name: string): any;
-
-	/**
-	 * If running in the node environment, a reference to the original NodeJS `require`
-	 */
-	nodeRequire?(id: string): any;
 
 	/**
 	 * Undefine a module, based on absolute MID that should be removed from the loader cache

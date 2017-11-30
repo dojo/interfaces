@@ -6,18 +6,19 @@ registerSuite('loader.d', {
 	'validate types'() {
 		const file = 'src/loader.d.ts';
 		const types = getTypeForFiles(file);
-		const coreTypes = types[file];
-		assertType.isType(coreTypes, 'Config', 'Config');
-		assertType.isType(coreTypes, 'Define', 'Define');
-		assertType.isType(coreTypes, 'Factory', 'Factory');
-		assertType.isType(coreTypes, 'Has', 'Has');
-		assertType.isType(coreTypes, 'ModuleMap', 'ModuleMap');
-		assertType.isType(coreTypes, 'ModuleMapItem', 'ModuleMapItem');
-		assertType.isType(coreTypes, 'ModuleMapReplacement', 'ModuleMapReplacement');
-		assertType.isType(coreTypes, 'Package', 'Package');
-		assertType.isType(coreTypes, 'Require', 'Require');
-		assertType.isType(coreTypes, 'RequireCallback', 'RequireCallback');
-		assertType.isType(coreTypes, 'RootRequire', 'RootRequire');
-		assertType.isType(coreTypes, 'SignalType', '"error"');
+		const loaderTypes = types[file];
+		assertType.isType(loaderTypes, 'Config', 'Config');
+		assertType.isType(loaderTypes, 'Define', 'Define');
+		assertType.isType(loaderTypes, 'Factory', 'Factory');
+		assertType.isType(loaderTypes, 'Has', 'Has');
+		assertType.isType(loaderTypes, 'ModuleMap', 'ModuleMap');
+		assertType.isType(loaderTypes, 'ModuleMapItem', 'ModuleMapItem');
+		assertType.isType(loaderTypes, 'ModuleMapReplacement', 'ModuleMapReplacement');
+		assertType.isType(loaderTypes, 'NodeRequire', 'NodeRequire');
+		assertType.isType(loaderTypes, 'Package', 'Package');
+		assertType.isType(loaderTypes, 'Require', 'Require');
+		assertType.isType(loaderTypes, 'RequireCallback', 'RequireCallback');
+		assertType.isType(loaderTypes, 'RootRequire', 'RootRequire');
+		assertType.isType(loaderTypes, 'SignalType', '"error"');
 	}
 });
