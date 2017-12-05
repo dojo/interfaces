@@ -31,7 +31,6 @@
     "@dojo/has": "~0.1.0",
     "@dojo/loader": "~0.1.0",
     "@types/assertion-error": "~1.0.30",
-    "@types/chai": "~3.4.0",
     "@types/glob": "~5.0.30",
     "@types/grunt": "~0.4.0",
     "@types/node": "~6.0.49",
