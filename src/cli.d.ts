@@ -25,10 +25,10 @@ export type OptionsHelper = (key: string, options: Options) => void;
 
 export interface NpmPackage {
 	devDependencies?: {
-		[name: string]: string
+		[name: string]: string;
 	};
 	dependencies?: {
-		[name: string]: string
+		[name: string]: string;
 	};
 }
 

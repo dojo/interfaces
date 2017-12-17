@@ -1,4 +1,4 @@
-const { registerSuite  } = intern.getInterface('object');
+const { registerSuite } = intern.getInterface('object');
 import { getTypeForFiles } from '../support/util';
 import assertType from '../support/assertType';
 
