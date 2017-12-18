@@ -9,9 +9,15 @@ export interface ConfigurationHelper {
 	get(): {};
 }
 
+export type RenderFilesConfig = {
+	src: string;
+	dest: string;
+}[];
+
 export interface CommandHelper {
 	run(group: string, commandName?: string, args?: Argv): Promise<any>;
 	exists(group: string, commandName?: string): boolean;
+	renderFiles(renderFilesConfig: RenderFilesConfig, renderData: object): void;
 }
 
 export interface Helper {
