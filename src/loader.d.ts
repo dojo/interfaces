@@ -21,12 +21,12 @@ export interface Config {
 	/**
 	 * A map of paths to use when resolving modules names
 	 */
-	paths?: { [ path: string ]: string; };
+	paths?: { [path: string]: string };
 
 	/**
 	 * A map of packages that the loader should use when resolving a module ID
 	 */
-	pkgs?: { [ path: string ]: Package; };
+	pkgs?: { [path: string]: Package };
 }
 
 export interface Define {
@@ -92,21 +92,25 @@ export interface Has {
 	 * @param now If `true` the test will be executed immediatly, if not, it will be lazily executed
 	 * @param force If `true` the test value will be overwritten if already registered
 	 */
-	add(name: string, value: (global: Window, document?: HTMLDocument, element?: HTMLDivElement) => any,
-		now?: boolean, force?: boolean): void;
+	add(
+		name: string,
+		value: (global: Window, document?: HTMLDocument, element?: HTMLDivElement) => any,
+		now?: boolean,
+		force?: boolean
+	): void;
 	add(name: string, value: any, now?: boolean, force?: boolean): void;
 }
 
 export interface ModuleMap extends ModuleMapItem {
-	[ sourceMid: string ]: ModuleMapReplacement;
+	[sourceMid: string]: ModuleMapReplacement;
 }
 
 export interface ModuleMapItem {
-	[ mid: string ]: any;
+	[mid: string]: any;
 }
 
 export interface ModuleMapReplacement extends ModuleMapItem {
-	[ findMid: string ]: string;
+	[findMid: string]: string;
 }
 
 export interface NodeRequire {

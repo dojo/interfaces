@@ -1,12 +1,6 @@
 import { includes } from '@dojo/shim/array';
 import TypeWriter, { TypeWriterResult } from './TypeWriter';
-import {
-	createCompilerHost,
-	createProgram,
-	CompilerOptions,
-	ModuleKind,
-	ScriptTarget
-} from 'typescript';
+import { createCompilerHost, createProgram, CompilerOptions, ModuleKind, ScriptTarget } from 'typescript';
 
 /**
  * Thenable represents any object with a callable `then` property.
@@ -16,11 +10,14 @@ export interface Thenable<T> {
 }
 
 export function isEventuallyRejected<T>(promise: Thenable<T>): Thenable<boolean> {
-	return promise.then<any>(function () {
-		throw new Error('unexpected code path');
-	}, function () {
-		return true; // expect rejection
-	});
+	return promise.then<any>(
+		function() {
+			throw new Error('unexpected code path');
+		},
+		function() {
+			return true; // expect rejection
+		}
+	);
 }
 
 export function throwImmediatly() {

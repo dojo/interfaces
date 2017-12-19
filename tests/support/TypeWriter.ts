@@ -40,9 +40,13 @@ function isClassLike(node: Node): node is ClassLikeDeclaration {
 }
 
 function tryGetClassExtendingExpressionWithTypeArguments(node: Node): ClassLikeDeclaration | undefined {
-	if (node.kind === SyntaxKind.ExpressionWithTypeArguments &&
-		(<HeritageClause> node.parent).token === SyntaxKind.ExtendsKeyword &&
-		node.parent && node.parent.parent && isClassLike(node.parent.parent)) {
+	if (
+		node.kind === SyntaxKind.ExpressionWithTypeArguments &&
+		(<HeritageClause>node.parent).token === SyntaxKind.ExtendsKeyword &&
+		node.parent &&
+		node.parent.parent &&
+		isClassLike(node.parent.parent)
+	) {
 		return node.parent.parent;
 	}
 }
@@ -53,10 +57,12 @@ function isExpressionWithTypeArgumentsInClassExtendsClause(node: Node): boolean 
 
 function isJSXTagName(node: Node) {
 	const parent = node.parent;
-	if (parent && parent.kind === SyntaxKind.JsxOpeningElement ||
-		parent && parent.kind === SyntaxKind.JsxSelfClosingElement ||
-		parent && parent.kind === SyntaxKind.JsxClosingElement) {
-		return (<JsxOpeningLikeElement> parent).tagName === node;
+	if (
+		(parent && parent.kind === SyntaxKind.JsxOpeningElement) ||
+		(parent && parent.kind === SyntaxKind.JsxSelfClosingElement) ||
+		(parent && parent.kind === SyntaxKind.JsxClosingElement)
+	) {
+		return (<JsxOpeningLikeElement>parent).tagName === node;
 	}
 	return false;
 }
@@ -105,9 +111,9 @@ function isPartOfExpression(node: Node | undefined): boolean {
 			while (node.parent && node.parent.kind === SyntaxKind.QualifiedName) {
 				node = node.parent;
 			}
-			return node.parent && node.parent.kind === SyntaxKind.TypeQuery || isJSXTagName(node);
+			return (node.parent && node.parent.kind === SyntaxKind.TypeQuery) || isJSXTagName(node);
 		case SyntaxKind.Identifier:
-			if (node.parent && node.parent.kind === SyntaxKind.TypeQuery || isJSXTagName(node)) {
+			if ((node.parent && node.parent.kind === SyntaxKind.TypeQuery) || isJSXTagName(node)) {
 				return true;
 			}
 		// fall through
@@ -123,7 +129,7 @@ function isPartOfExpression(node: Node | undefined): boolean {
 				case SyntaxKind.EnumMember:
 				case SyntaxKind.PropertyAssignment:
 				case SyntaxKind.BindingElement:
-					return (<VariableLikeDeclaration> parent).initializer === node;
+					return (<VariableLikeDeclaration>parent).initializer === node;
 				case SyntaxKind.ExpressionStatement:
 				case SyntaxKind.IfStatement:
 				case SyntaxKind.DoStatement:
@@ -134,30 +140,40 @@ function isPartOfExpression(node: Node | undefined): boolean {
 				case SyntaxKind.CaseClause:
 				case SyntaxKind.ThrowStatement:
 				case SyntaxKind.SwitchStatement:
-					return (<ExpressionStatement> parent).expression === node;
+					return (<ExpressionStatement>parent).expression === node;
 				case SyntaxKind.ForStatement:
-					let forStatement = <ForStatement> parent;
-					return (forStatement.initializer === node && forStatement.initializer.kind !== SyntaxKind.VariableDeclarationList) ||
+					let forStatement = <ForStatement>parent;
+					return (
+						(forStatement.initializer === node &&
+							forStatement.initializer.kind !== SyntaxKind.VariableDeclarationList) ||
 						forStatement.condition === node ||
-						forStatement.incrementor === node;
+						forStatement.incrementor === node
+					);
 				case SyntaxKind.ForInStatement:
 				case SyntaxKind.ForOfStatement:
-					let forInStatement = <ForInStatement | ForOfStatement> parent;
-					return (forInStatement.initializer === node && forInStatement.initializer.kind !== SyntaxKind.VariableDeclarationList) ||
-						forInStatement.expression === node;
+					let forInStatement = <ForInStatement | ForOfStatement>parent;
+					return (
+						(forInStatement.initializer === node &&
+							forInStatement.initializer.kind !== SyntaxKind.VariableDeclarationList) ||
+						forInStatement.expression === node
+					);
 				case SyntaxKind.TypeAssertionExpression:
 				case SyntaxKind.AsExpression:
-					return node === (<AssertionExpression> parent).expression;
+					return node === (<AssertionExpression>parent).expression;
 				case SyntaxKind.TemplateSpan:
-					return node === (<TemplateSpan> parent).expression;
+					return node === (<TemplateSpan>parent).expression;
 				case SyntaxKind.ComputedPropertyName:
-					return node === (<ComputedPropertyName> parent).expression;
+					return node === (<ComputedPropertyName>parent).expression;
 				case SyntaxKind.Decorator:
 				case SyntaxKind.JsxExpression:
 				case SyntaxKind.JsxSpreadAttribute:
 					return true;
 				case SyntaxKind.ExpressionWithTypeArguments:
-					return (<ExpressionWithTypeArguments> parent).expression === node && (parent && isExpressionWithTypeArgumentsInClassExtendsClause(parent)) || false;
+					return (
+						((<ExpressionWithTypeArguments>parent).expression === node &&
+							(parent && isExpressionWithTypeArgumentsInClassExtendsClause(parent))) ||
+						false
+					);
 				default:
 					if (parent && isPartOfExpression(parent)) {
 						return true;
@@ -189,7 +205,7 @@ export default class TypeWriterWalker {
 		// Consider getting both the diagnostics checker and the non-diagnostics checker to verify
 		// they are consistent.
 		this.checker = fullTypeCheck
-			? <ts.TypeChecker> (<any> program).getDiagnosticsProducingTypeChecker()
+			? <ts.TypeChecker>(<any>program).getDiagnosticsProducingTypeChecker()
 			: program.getTypeChecker();
 	}
 	/* tslint:enable */
@@ -210,19 +226,23 @@ export default class TypeWriterWalker {
 			this.logTypeAndSymbol(node);
 		}
 
-		ts.forEachChild(node, child => this.visitNode(child));
+		ts.forEachChild(node, (child) => this.visitNode(child));
 	}
 
 	private logTypeAndSymbol(node: ts.Node): void {
-		const actualPos: number = (<any> ts).skipTrivia(this.currentSourceFile.text, node.pos);
+		const actualPos: number = (<any>ts).skipTrivia(this.currentSourceFile.text, node.pos);
 		const lineAndCharacter = this.currentSourceFile.getLineAndCharacterOfPosition(actualPos);
-		const sourceText: string = (<any> ts).getTextOfNodeFromSourceText(this.currentSourceFile.text, node);
+		const sourceText: string = (<any>ts).getTextOfNodeFromSourceText(this.currentSourceFile.text, node);
 
 		// Workaround to ensure we output 'C' instead of 'typeof C' for base class expressions
 		// let type = this.checker.getTypeAtLocation(node);
-		const type = node.parent && (<any> ts).isExpressionWithTypeArgumentsInClassExtendsClause(node.parent) && this.checker.getTypeAtLocation(node.parent) || this.checker.getTypeAtLocation(node);
+		const type =
+			(node.parent &&
+				(<any>ts).isExpressionWithTypeArgumentsInClassExtendsClause(node.parent) &&
+				this.checker.getTypeAtLocation(node.parent)) ||
+			this.checker.getTypeAtLocation(node);
 
-		assert.isDefined(type, 'type doesn\'t exist');
+		assert.isDefined(type, "type doesn't exist");
 		const symbol = this.checker.getSymbolAtLocation(node);
 
 		const typeString = this.checker.typeToString(type, node.parent, ts.TypeFormatFlags.NoTruncation);
@@ -234,9 +254,11 @@ export default class TypeWriterWalker {
 					symbolString += ', ';
 					const declSourceFile = declaration.getSourceFile();
 					const declLineAndCharacter = declSourceFile.getLineAndCharacterOfPosition(declaration.pos);
-					const fileName: string = (<any> ts).getBaseFileName(declSourceFile.fileName);
+					const fileName: string = (<any>ts).getBaseFileName(declSourceFile.fileName);
 					const isLibFile = /lib(.*)\.d\.ts/i.test(fileName);
-					symbolString += `Decl(${ fileName }, ${ isLibFile ? '--' : declLineAndCharacter.line }, ${ isLibFile ? '--' : declLineAndCharacter.character })`;
+					symbolString += `Decl(${fileName}, ${isLibFile ? '--' : declLineAndCharacter.line}, ${
+						isLibFile ? '--' : declLineAndCharacter.character
+					})`;
 				}
 			}
 			symbolString += ')';
