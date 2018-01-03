@@ -27,7 +27,7 @@
     "test": "grunt test"
   },
   "dependencies": {
-    "@types/yargs": "^8.0.2"
+    "@types/yargs": "^10.0.0"
   },
   "devDependencies": {
     "@dojo/has": "~0.1.0",
