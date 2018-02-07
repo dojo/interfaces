@@ -12,7 +12,7 @@ This package contain TypeScript interfaces and types that are widely used across
 easier to maintain these interfaces as well as build code that integrates well with the rest of the Dojo 2 packages without
 requiring a hard dependency on those other packages.
 
-**WARNING** This is _beta_ software. While we do not anticipate significant changes to the API at this stage, we may feel the need to do so. This is not yet production ready, so you should use at your own risk.
+**WARNING** This package is deprecated in favor of functionality found elsewhere in Dojo 2.
 
 - [Usage](#usage)
 - [Features](#features)
@@ -101,4 +101,4 @@ Since this is a type only package, we are currently working on the best way to t
 
 ## Licensing information
 
-© 2017 [JS Foundation](https://js.foundation/). [New BSD](http://opensource.org/licenses/BSD-3-Clause) license.
+© 2018 [JS Foundation](https://js.foundation/). [New BSD](http://opensource.org/licenses/BSD-3-Clause) license.
