@@ -12,7 +12,7 @@ This package contain TypeScript interfaces and types that are widely used across
 easier to maintain these interfaces as well as build code that integrates well with the rest of the Dojo 2 packages without
 requiring a hard dependency on those other packages.
 
-**WARNING** This package is deprecated in favor of functionality found elsewhere in Dojo 2. This package is not being further developed at this time as its feature set is redundant with other capabilities.
+**WARNING** This package is deprecated in favor of functionality found elsewhere in Dojo 2.
 
 - [Usage](#usage)
 - [Features](#features)
